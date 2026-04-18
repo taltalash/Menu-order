@@ -40,7 +40,6 @@
     background:
       radial-gradient(circle at top, rgba(201, 168, 76, 0.16), transparent 30%),
       linear-gradient(180deg, #20160e 0%, #120c07 100%);
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -165,6 +164,14 @@
     gap: 1rem;
   }
 
+  .header-actions,
+  .screen-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+  }
+
   .menu-header-title,
   .app-header h1 {
     font-family: 'Frank Ruhl Libre', serif;
@@ -197,6 +204,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
+    white-space: nowrap;
+  }
+
+  .logout-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+    font-weight: 700;
     white-space: nowrap;
   }
 
@@ -407,8 +425,9 @@
 
   .item-info { flex: 1; min-width: 0; }
   .item-name { font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 0.15rem; line-height: 1.35; }
-  .item-name-orig { font-size: 0.77rem; color: var(--gold); font-weight: 500; margin-bottom: 0.2rem; font-style: italic; opacity: 0.9; }
+  .item-name-orig { font-size: 0.82rem; color: var(--gold); font-weight: 600; margin-bottom: 0.2rem; font-style: italic; opacity: 0.95; }
   .item-desc { font-size: 0.8rem; color: var(--light); line-height: 1.45; }
+  .item-desc-en { font-size: 0.76rem; color: #9a866f; line-height: 1.45; margin-top: 0.18rem; font-style: italic; }
   .item-note-wrap { margin-top: 0.6rem; }
 
   .item-note-input,
@@ -489,7 +508,9 @@
   }
 
   .order-item-name { font-size: 0.92rem; color: var(--dark); font-weight: 700; flex: 1; }
-  .order-item-orig { font-size: 0.74rem; color: var(--light); font-style: italic; margin-top: 0.15rem; }
+  .order-item-orig { font-size: 0.8rem; color: var(--gold); font-style: italic; margin-top: 0.15rem; font-weight: 600; }
+  .order-item-desc { font-size: 0.76rem; color: var(--light); margin-top: 0.18rem; line-height: 1.45; }
+  .order-item-desc-en { font-size: 0.74rem; color: #9a866f; margin-top: 0.12rem; line-height: 1.45; font-style: italic; }
 
   .order-item-right {
     display: flex;
@@ -537,7 +558,9 @@
     font-weight: 700;
     font-size: 0.9rem;
   }
-  .dish-name-en { font-size: 0.76rem; color: var(--gold); font-style: italic; margin-top: 0.25rem; }
+  .dish-name-en { font-size: 0.82rem; color: var(--gold); font-style: italic; margin-top: 0.25rem; font-weight: 600; }
+  .dish-desc-he { font-size: 0.77rem; color: var(--light); margin-top: 0.18rem; line-height: 1.45; }
+  .dish-desc-en { font-size: 0.75rem; color: #9a866f; margin-top: 0.15rem; line-height: 1.45; font-style: italic; }
   .dish-people { font-size: 0.83rem; color: var(--light); margin-top: 0.45rem; line-height: 1.45; }
   .dish-notes { font-size: 0.78rem; color: var(--green); margin-top: 0.35rem; line-height: 1.45; }
 
@@ -719,11 +742,13 @@
   <div class="menu-header">
     <div class="header-stack">
       <div class="menu-header-title">🍽️ תפריט המסעדה <span class="sync-dot synced" id="syncDot"></span></div>
-      <div class="menu-header-name" id="headerName"></div>
     </div>
-    <button class="header-pill" onclick="showScreen('myOrderScreen')">
-      ההזמנה שלי <span class="count-badge" id="cartCount">0</span>
-    </button>
+    <div class="header-actions">
+      <button class="header-pill" onclick="showScreen('myOrderScreen')">
+        ההזמנה שלי <span class="count-badge" id="cartCount">0</span>
+      </button>
+      <button class="logout-btn" onclick="logout()">התנתק</button>
+    </div>
   </div>
   <div id="adminBar" style="display:none" class="admin-bar">
     👑 מצב אדמין
@@ -748,8 +773,10 @@
 
 <div class="screen" id="myOrderScreen">
   <div class="app-header">
-    <h1>ההזמנה שלי</h1>
-    <p id="myOrderSubline"></p>
+    <div class="screen-top-row">
+      <h1>ההזמנה שלי</h1>
+      <button class="logout-btn" onclick="logout()">התנתק</button>
+    </div>
   </div>
   <div class="page-body">
     <div class="summary-strip">
@@ -773,8 +800,10 @@
 
 <div class="screen" id="everyoneScreen">
   <div class="app-header">
-    <h1>כל ההזמנות</h1>
-    <p id="everyoneSubline"></p>
+    <div class="screen-top-row">
+      <h1>כל ההזמנות</h1>
+      <button class="logout-btn" onclick="logout()">התנתק</button>
+    </div>
   </div>
   <div class="page-body">
     <div class="summary-strip">
@@ -807,6 +836,7 @@ firebase.initializeApp({
   appId: "1:899262911770:web:a61af4c90d32335d6688a3"
 });
 const db = firebase.database();
+const ordersRef = db.ref('orders');
 
 const MENU = [
   { id:'tapas', name:'טאפאס', icon:'🫒', items:[
@@ -901,6 +931,14 @@ function itemCategory(itemId) {
   return MENU.find(cat => cat.items.some(item => item.id === Number(itemId))) || null;
 }
 
+function parseEnglishParts(item) {
+  const parts = (item.orig || '').split('·').map(part => part.trim()).filter(Boolean);
+  return {
+    name: parts[0] || '',
+    desc: parts.slice(1).join(' · ')
+  };
+}
+
 function setSyncing() { document.getElementById('syncDot').className = 'sync-dot syncing'; }
 function setSynced() { document.getElementById('syncDot').className = 'sync-dot synced'; }
 function setError() { document.getElementById('syncDot').className = 'sync-dot error'; }
@@ -921,7 +959,8 @@ function startOrdering() {
   isAdmin = (name === 'טל');
   document.getElementById('loadingOverlay').classList.remove('hidden');
 
-  db.ref('orders').on('value', snapshot => {
+  ordersRef.off();
+  ordersRef.on('value', snapshot => {
     const raw = snapshot.val() || {};
     allOrders = {};
     Object.entries(raw).forEach(([user, orders]) => {
@@ -941,9 +980,6 @@ function startOrdering() {
     if (!allOrders[currentUser]) allOrders[currentUser] = {};
 
     document.getElementById('loadingOverlay').classList.add('hidden');
-    document.getElementById('headerName').textContent = 'שלום, ' + currentUser + (isAdmin ? ' 👑' : '');
-    document.getElementById('myOrderSubline').textContent = 'עבור ' + currentUser + ' · ' + new Date().toLocaleString('he-IL');
-    document.getElementById('everyoneSubline').textContent = 'עודכן לאחרונה · ' + new Date().toLocaleString('he-IL');
     document.getElementById('adminBar').style.display = isAdmin ? 'flex' : 'none';
 
     buildMenu();
@@ -961,6 +997,22 @@ function startOrdering() {
     updateAllCounters();
     showScreen('menuScreen');
   });
+}
+
+function logout() {
+  ordersRef.off();
+  currentUser = '';
+  isAdmin = false;
+  allOrders = {};
+  document.getElementById('nameInput').value = '';
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('adminBar').style.display = 'none';
+  document.getElementById('categoryNav').innerHTML = '';
+  document.getElementById('menuBody').innerHTML = '';
+  document.getElementById('myOrderContent').innerHTML = '';
+  document.getElementById('everyoneContent').innerHTML = '';
+  updateAllCounters();
+  showScreen('nameScreen');
 }
 
 function saveOrders(user) {
@@ -1054,13 +1106,15 @@ function buildMenuItem(item) {
   const priceStr = item.hasSizes
     ? 'מיני: ' + item.priceMini.toFixed(2) + '€ / רגיל: ' + item.price.toFixed(2) + '€'
     : item.price.toFixed(2) + '€';
+  const english = parseEnglishParts(item);
 
   element.innerHTML =
     '<div class="item-checkbox">' + (isSelected ? '✓' : '') + '</div>' +
     '<div class="item-info">' +
       '<div class="item-name">' + item.name + '</div>' +
-      '<div class="item-name-orig">' + item.orig + '</div>' +
+      (english.name ? '<div class="item-name-orig">' + english.name + '</div>' : '') +
       (item.desc ? '<div class="item-desc">' + item.desc + '</div>' : '') +
+      (english.desc ? '<div class="item-desc-en">' + english.desc + '</div>' : '') +
       (item.hasSizes
         ? '<div class="item-size-options">' +
             '<button class="size-btn ' + (entry && entry.size === 'מיני' ? 'selected' : '') + '" onclick="selectSize(event,' + item.id + ',\'מיני\')">מיני ' + item.priceMini.toFixed(2) + '€</button>' +
@@ -1164,6 +1218,7 @@ function renderMyOrder() {
 }
 
 function buildEditableOrderRow(user, order) {
+  const english = parseEnglishParts(order.item);
   const row = document.createElement('div');
   row.className = 'order-item-row';
 
@@ -1171,7 +1226,9 @@ function buildEditableOrderRow(user, order) {
   top.className = 'order-item-top';
   top.innerHTML =
     '<div class="order-item-name">' + order.item.name + (order.size ? ' (' + order.size + ')' : '') +
-      '<div class="order-item-orig">' + order.item.orig + '</div>' +
+      (english.name ? '<div class="order-item-orig">' + english.name + '</div>' : '') +
+      (order.item.desc ? '<div class="order-item-desc">' + order.item.desc + '</div>' : '') +
+      (english.desc ? '<div class="order-item-desc-en">' + english.desc + '</div>' : '') +
     '</div>';
 
   const right = document.createElement('div');
@@ -1244,6 +1301,7 @@ function renderEveryone() {
     section.appendChild(title);
 
     category.dishes.forEach(dish => {
+      const english = parseEnglishParts(dish.item);
       const card = document.createElement('div');
       card.className = 'dish-card';
       const notes = dish.entries
@@ -1252,7 +1310,9 @@ function renderEveryone() {
 
       card.innerHTML =
         '<div><span class="dish-count">×' + dish.entries.length + '</span><span class="dish-name-he">' + dish.item.name + (dish.size ? ' (' + dish.size + ')' : '') + '</span><span class="dish-price">' + itemPrice({ item: dish.item, size: dish.size }).toFixed(2) + '€</span></div>' +
-        '<div class="dish-name-en">' + dish.item.orig + '</div>' +
+        (english.name ? '<div class="dish-name-en">' + english.name + '</div>' : '') +
+        (dish.item.desc ? '<div class="dish-desc-he">' + dish.item.desc + '</div>' : '') +
+        (english.desc ? '<div class="dish-desc-en">' + english.desc + '</div>' : '') +
         '<div class="dish-people">👥 ' + dish.entries.map(entry => entry.user).join(' · ') + '</div>' +
         (notes.length ? '<div class="dish-notes">💬 ' + notes.join(' · ') + '</div>' : '');
 
@@ -1325,11 +1385,6 @@ function updateAllCounters() {
     const el = document.getElementById(id);
     if (el) el.textContent = participants + ' משתתפים';
   });
-
-  document.getElementById('myOrderSubline').textContent = 'עבור ' + currentUser + ' · ' + myCount + ' מנות';
-  document.getElementById('everyoneSubline').textContent = participants
-    ? participants + ' משתתפים · עודכן ' + new Date().toLocaleTimeString('he-IL')
-    : 'עדיין אין הזמנות';
 }
 
 function showScreen(id) {
