@@ -1,4 +1,11 @@
-ut bundler) -->
+<!DOCTYPE html>
+
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תפריט המסעדה 🍽️</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <style>
@@ -13,6 +20,7 @@ ut bundler) -->
 .screen { display:none; min-height:100vh; }
 .screen.active { display:block; }
 
+/* NAME SCREEN */
 #nameScreen { background:var(–dark); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; text-align:center; }
 #nameScreen.active { display:flex; }
 .restaurant-logo { font-family:‘Frank Ruhl Libre’,serif; font-size:3rem; font-weight:900; color:var(–gold); margin-bottom:0.3rem; }
@@ -20,23 +28,29 @@ ut bundler) -->
 .name-card { background:rgba(255,255,255,0.05); border:1px solid rgba(201,168,76,0.3); border-radius:16px; padding:2.5rem 2rem; width:100%; max-width:380px; }
 .name-card h2 { font-family:‘Frank Ruhl Libre’,serif; font-size:1.5rem; color:#fff; margin-bottom:0.5rem; }
 .name-card p { color:var(–light); font-size:0.9rem; margin-bottom:1.5rem; }
-.name-input { width:100%; padding:0.9rem 1rem; background:rgba(255,255,255,0.9); border:1px solid rgba(201,168,76,0.4); border-radius:10px; color:#1a1208; font-family:‘Heebo’,sans-serif; font-size:1rem; text-align:right; outline:none; transition:border-color 0.2s; margin-bottom:1rem; }
+.name-input { width:100%; padding:0.9rem 1rem; background:#fff; border:1px solid rgba(201,168,76,0.4); border-radius:10px; color:#1a1208; font-family:‘Heebo’,sans-serif; font-size:1rem; text-align:right; outline:none; transition:border-color 0.2s; margin-bottom:1rem; }
 .name-input:focus { border-color:var(–gold); }
-.name-input::placeholder { color:#888; }
+.name-input::placeholder { color:#999; }
 .btn-primary { width:100%; padding:1rem; background:var(–gold); color:var(–dark); border:none; border-radius:10px; font-family:‘Heebo’,sans-serif; font-size:1rem; font-weight:700; cursor:pointer; }
 .btn-primary:disabled { opacity:0.4; cursor:not-allowed; }
 
-.sync-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#aaa; margin-left:6px; vertical-align:middle; transition:background 0.3s; }
+/* SYNC */
+.sync-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#aaa; margin-left:6px; vertical-align:middle; }
 .sync-dot.synced { background:#4a7c59; }
 .sync-dot.syncing { background:var(–gold); animation:pulse 1s infinite; }
 .sync-dot.error { background:var(–accent); }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
+/* MENU HEADER */
 .menu-header { background:var(–dark); padding:1.2rem 1.5rem; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
 .menu-header-title { font-family:‘Frank Ruhl Libre’,serif; font-size:1.3rem; color:var(–gold); font-weight:700; }
 .menu-header-name { color:rgba(255,255,255,0.6); font-size:0.82rem; }
 .cart-btn { background:var(–gold); color:var(–dark); border:none; border-radius:50px; padding:0.5rem 1.2rem; font-family:‘Heebo’,sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:0.4rem; }
 .cart-count { background:var(–dark); color:var(–gold); border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:900; }
+
+/* ADMIN BAR */
+.admin-bar { background:rgba(201,168,76,0.12); border-bottom:1px solid rgba(201,168,76,0.25); padding:0.6rem 1.5rem; font-size:0.82rem; color:var(–mid); display:flex; align-items:center; gap:0.5rem; }
+.clear-btn { margin-right:auto; background:#c0392b; color:#fff; border:none; border-radius:50px; padding:0.3rem 0.9rem; font-family:‘Heebo’,sans-serif; font-size:0.75rem; cursor:pointer; }
 
 .category-nav { display:flex; gap:0.5rem; padding:1rem 1.5rem; overflow-x:auto; background:var(–warm); border-bottom:1px solid rgba(0,0,0,0.08); scrollbar-width:none; }
 .category-nav::-webkit-scrollbar { display:none; }
@@ -50,6 +64,7 @@ ut bundler) -->
 .category-note { font-size:0.8rem; color:var(–light); margin-bottom:1rem; font-style:italic; }
 .section-divider { height:8px; background:var(–warm); margin:0.5rem 0; }
 
+/* MENU ITEM */
 .menu-item { background:#fff; border-radius:12px; padding:1rem 1.2rem; margin-bottom:0.7rem; display:flex; align-items:flex-start; gap:1rem; border:2px solid transparent; transition:all 0.2s; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
 .menu-item:hover { border-color:rgba(201,168,76,0.3); }
 .menu-item.selected { border-color:var(–green); background:#f0f8f2; }
@@ -59,11 +74,15 @@ ut bundler) -->
 .item-name { font-weight:700; font-size:0.95rem; color:var(–dark); margin-bottom:0.1rem; line-height:1.3; }
 .item-name-orig { font-size:0.74rem; color:var(–gold); font-weight:500; margin-bottom:0.15rem; font-style:italic; opacity:0.85; }
 .item-desc { font-size:0.78rem; color:var(–light); line-height:1.4; }
+.item-note-wrap { margin-top:0.5rem; }
+.item-note-input { width:100%; padding:0.35rem 0.7rem; border:1.5px solid #ddd; border-radius:8px; font-family:‘Heebo’,sans-serif; font-size:0.78rem; color:var(–dark); background:#fafafa; outline:none; }
+.item-note-input:focus { border-color:var(–gold); }
 .item-price { font-family:‘Frank Ruhl Libre’,serif; font-weight:700; font-size:1rem; color:var(–accent); white-space:nowrap; flex-shrink:0; }
 .item-size-options { display:flex; gap:0.5rem; margin-top:0.5rem; }
 .size-btn { padding:0.2rem 0.7rem; border:1.5px solid #ddd; border-radius:50px; font-size:0.75rem; cursor:pointer; background:#fff; transition:all 0.15s; font-family:‘Heebo’,sans-serif; }
 .size-btn.selected { background:var(–green); border-color:var(–green); color:#fff; }
 
+/* PAGES */
 .page-header { background:var(–dark); padding:1.5rem; text-align:center; }
 .page-header h1 { font-family:‘Frank Ruhl Libre’,serif; font-size:1.8rem; color:var(–gold); }
 .page-header p { color:rgba(255,255,255,0.6); font-size:0.85rem; margin-top:0.3rem; }
@@ -73,19 +92,30 @@ ut bundler) -->
 .tab-bar-btn { flex:1; padding:0.6rem; border:none; background:transparent; color:rgba(255,255,255,0.5); font-family:‘Heebo’,sans-serif; font-size:0.8rem; font-weight:500; cursor:pointer; border-radius:50px; transition:all 0.2s; }
 .tab-bar-btn.active { background:var(–gold); color:var(–dark); font-weight:700; }
 
+/* PERSON CARD */
 .person-order { background:#fff; border-radius:14px; padding:1.2rem; margin-bottom:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
-.person-name { font-family:‘Frank Ruhl Libre’,serif; font-size:1.1rem; font-weight:700; color:var(–dark); margin-bottom:0.8rem; padding-bottom:0.5rem; border-bottom:1px solid #eee; display:flex; align-items:center; gap:0.5rem; }
+.person-name-row { font-family:‘Frank Ruhl Libre’,serif; font-size:1.1rem; font-weight:700; color:var(–dark); margin-bottom:0.8rem; padding-bottom:0.5rem; border-bottom:1px solid #eee; display:flex; align-items:center; gap:0.5rem; }
 .person-total { font-size:0.85rem; color:var(–accent); font-weight:600; margin-right:auto; }
-.order-item-row { display:flex; justify-content:space-between; align-items:flex-start; padding:0.4rem 0; font-size:0.88rem; color:var(–mid); border-bottom:1px dashed #f0ebe3; gap:0.5rem; }
+
+.order-item-row { padding:0.5rem 0; border-bottom:1px dashed #f0ebe3; }
 .order-item-row:last-child { border-bottom:none; }
+.order-item-top { display:flex; justify-content:space-between; align-items:center; gap:0.5rem; }
+.order-item-name { font-size:0.88rem; color:var(–dark); font-weight:600; flex:1; }
 .order-item-orig { font-size:0.72rem; color:var(–light); font-style:italic; }
-.order-item-price { color:var(–accent); font-weight:600; font-size:0.85rem; white-space:nowrap; flex-shrink:0; }
+.order-item-right { display:flex; align-items:center; gap:0.4rem; flex-shrink:0; }
+.order-item-price { color:var(–accent); font-weight:600; font-size:0.85rem; }
+.del-btn { background:none; border:none; color:#ddd; font-size:0.9rem; cursor:pointer; line-height:1; padding:0 0.1rem; }
+.del-btn:hover { color:#c0392b; }
+.order-item-note { font-size:0.75rem; color:var(–green); margin-top:0.2rem; }
+.note-edit { width:100%; margin-top:0.35rem; padding:0.3rem 0.6rem; border:1.5px solid #eee; border-radius:6px; font-family:‘Heebo’,sans-serif; font-size:0.78rem; color:var(–dark); outline:none; background:#fafafa; }
+.note-edit:focus { border-color:var(–gold); }
 
 .dish-card { background:#fff; border-radius:14px; padding:1rem 1.2rem; margin-bottom:0.8rem; box-shadow:0 2px 8px rgba(0,0,0,0.07); }
 .dish-count { display:inline-block; background:var(–gold); color:var(–dark); border-radius:50px; padding:0.1rem 0.7rem; font-size:0.8rem; font-weight:700; margin-left:0.5rem; }
 .dish-name-he { font-weight:700; font-size:1rem; color:var(–dark); }
-.dish-name-en { font-size:0.76rem; color:var(–gold); font-style:italic; margin-top:0.2rem; font-weight:500; }
+.dish-name-en { font-size:0.76rem; color:var(–gold); font-style:italic; margin-top:0.2rem; }
 .dish-people { font-size:0.82rem; color:var(–light); margin-top:0.4rem; }
+.dish-notes { font-size:0.78rem; color:var(–green); margin-top:0.3rem; }
 
 .grand-total-box { background:var(–dark); color:#fff; border-radius:14px; padding:1.2rem 1.5rem; display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; margin-bottom:1.5rem; }
 .grand-total-label { font-size:1rem; color:rgba(255,255,255,0.7); }
@@ -144,6 +174,10 @@ ut bundler) -->
       הזמנתי <span class="cart-count" id="cartCount">0</span>
     </button>
   </div>
+  <div id="adminBar" style="display:none" class="admin-bar">
+    👑 מצב אדמין — טל
+    <button class="clear-btn" onclick="clearAll()">🗑️ נקה הכל</button>
+  </div>
   <div class="category-nav" id="categoryNav"></div>
   <div class="menu-body" id="menuBody"></div>
   <div class="float-btn-bar">
@@ -188,10 +222,7 @@ ut bundler) -->
 </div>
 
 <script>
-// ============================================================
-// FIREBASE INIT
-// ============================================================
-const firebaseConfig = {
+firebase.initializeApp({
   apiKey: "AIzaSyBDPYzECbJljijvEGxnkNOARfP5uHYGUqg",
   authDomain: "menu-order-b71a9.firebaseapp.com",
   databaseURL: "https://menu-order-b71a9-default-rtdb.europe-west1.firebasedatabase.app",
@@ -199,123 +230,87 @@ const firebaseConfig = {
   storageBucket: "menu-order-b71a9.firebasestorage.app",
   messagingSenderId: "899262911770",
   appId: "1:899262911770:web:a61af4c90d32335d6688a3"
-};
-
-firebase.initializeApp(firebaseConfig);
+});
 const db = firebase.database();
 
-// ============================================================
-// MENU DATA
-// ============================================================
 const MENU = [
-  {
-    id:'tapas', name:'טאפאס', icon:'🫒',
-    items:[
-      {id:1,  name:'תפוחי אדמה קנריים',           orig:'Canarian Potatoes · Homemade Mojos',                              desc:'מוחוס ביתיים',                                                   price:7.50},
-      {id:2,  name:'מגש פרושוטו איבריקה 100%',     orig:'Platter of 100% Iberian Ham',                                    desc:'',                                                               price:20.00},
-      {id:3,  name:'קלמרי פריך',                   orig:'Crispy Calamari · Cuttlefish Aioli',                             desc:'איולי דיונון',                                                   price:15.00},
-      {id:4,  name:'פלפלי פאדרון ממולאים',         orig:'Stuffed Padrón Peppers · Almogrote & Palm Honey',                desc:'אלמוגרוטה ודבש כפות',                                            price:14.00},
-      {id:5,  name:"ג'יוזה ברווז",                 orig:'Duck Gyoza · Pedro Ximénez Sauce · Ponzu',                       desc:"רוטב פדרו חימנס · פונזו",                                        price:12.00},
-      {id:6,  name:"שרימפס קוקוס-תאילנדי פריך",   orig:'Crispy Thai Coconut Prawn · Tzatziki · Guacamole · Sweet Chili', desc:"צ'אצ'יקי · גוואקמולה · צ'ילי מתוק",                             price:15.00},
-      {id:7,  name:'קרוקטות בית',                  orig:"House Croquettes · Chive Mayo · Chef's Selection",               desc:'מיונז עירית · בחירת שף',                                         price:12.00},
-      {id:8,  name:"שרימפס שום · צ'וריסו",         orig:'Garlic Prawns · Chorizo',                                        desc:'',                                                               price:14.00},
-      {id:9,  name:'קפה סנט ברשת',                 orig:'Gratinated Scallops · Citrus Butter Pearls of the Sea',          desc:'פנינות חמאה הדרים מהים',                                         price:16.00},
-    ]
-  },
-  {
-    id:'bread', name:"לחמים ופוקאצ'ה", icon:'🍞',
-    items:[
-      {id:10, name:'לחם ושמן זית כתית',                              orig:'Bread & Extra Virgin Olive Oil',                             desc:'', price:2.00},
-      {id:11, name:'לחם עם עגבניה ושום',                              orig:'Bread with Tomato & Garlic',                                 desc:'', price:4.00},
-      {id:12, name:'מוחוס קנריים · איולי ביתי',                      orig:'Canarian Mojos · Homemade Aioli',                            desc:'', price:2.10},
-      {id:13, name:"פוקאצ'ה עגבניות · פרמזן · פרושוטו · ארוגולה",   orig:'Tomato Focaccia · Parmesan · Serrano Ham · Arugula',         desc:'', price:12.00},
-      {id:14, name:"פוקאצ'ה כמהין · פרמזן · ארוגולה",               orig:'Truffle Focaccia · Parmesan · Arugula',                      desc:'', price:10.00},
-      {id:15, name:"פוקאצ'ה רוזמרין ומלח פתיתים",                   orig:'Rosemary and Flaky Salt Focaccia',                           desc:'', price:8.50},
-    ]
-  },
-  {
-    id:'cold_starters', name:'פתיחים קרים', icon:'🥗',
-    items:[
-      {id:16, name:"סביצ'ה סלמון", orig:"Salmon Ceviche · Nikkei Mango Tiger's Milk · Red Onion · Tobiko", desc:'ניקיי מנגו טייגרס מילק · בצל אדום · טוביקו', price:18.00},
-      {id:17, name:'טרטר טונה',    orig:'Tuna Tartare · Avocado & Wasabi Mayo',                            desc:'אבוקדו ומיונז ווסאבי',                        price:19.00},
-      {id:18, name:'טאטאקי טונה',  orig:'Tuna Tataki · Sésamo · Wasabi Ice Cream · Caramelized Onion with Ponzu', desc:'סזאם · גלידת ווסאבי · בצל מקורמל עם פונזו', price:19.00},
-    ]
-  },
-  {
-    id:'soups', name:'מרקים ומנות צמחוניות', icon:'🥣',
-    items:[
-      {id:19, name:'סלט חלומי פריך',          orig:'Crispy Halloumi Salad · Lettuce · Cherry Tomatoes · Citrus Fruits · Almonds', desc:'חסה · עגבניות שרי · פירות הדרים · שקדים', price:14.00},
-      {id:20, name:'מרק פירות ים סלאבי קרמי', orig:'Creamy Slavic Seafood Soup · Cod · Prawns · Salmon Pearls',                  desc:'בקלה · שרימפס · פנינות סלמון',            price:13.00},
-      {id:21, name:'מרק קרם דלעת צלויה',      orig:'Roasted Pumpkin Cream Soup',                                                 desc:'',                                        price:9.00},
-      {id:22, name:'ריזוטו פטריות',           orig:'Mushroom Risotto · Porcini Mushrooms · Parmesan Cheese',                    desc:'פטריות פורציני · גבינת פרמזן',            price:16.00},
-    ]
-  },
-  {
-    id:'meat', name:'מנות עיקריות – בשר', icon:'🥩',
-    items:[
-      {id:23, name:"סטייק סינטה ים ויבשה",   orig:'Surf & Turf Sirloin Steak 200g · Glazed King Prawn · Truffled Purée · Café de Paris Sauce',    desc:'שרימפס מלך מגולס · פורה כמהין · רוטב קפה פאריז', price:27.00},
-      {id:24, name:"סטייק סינטה צלוי 220ג'", orig:'Grilled Sirloin Steak 220g · Rosemary Potatoes · Seasonal Vegetables · Peppercorn Sauce',       desc:'תפוחי אדמה רוזמרין · ירקות עונתיים · רוטב פלפל', price:26.00},
-      {id:25, name:'צלעות חזיר איבריקה',     orig:'Iberian Pork French Rack · Demi-glace · Roasted Tomato · Rosemary Potatoes',                    desc:'דמי-גלאס · עגבניה צלויה · תפוחי אדמה רוזמרין',   price:24.00},
-      {id:26, name:'עוף פסטורלי',            orig:'Free-Range Chicken Supreme · Beurre Blanc · Creamy Purée & Apple · Citrus Foam',               desc:'בר בלן · פורה קרמי ותפוח · קצף הדרים',            price:22.00},
-      {id:27, name:'כנף חזיר צלויה',         orig:'Roasted Pork Knuckle · Horseradish Purée · Mustard Sauce',                                     desc:'פורה חזרת · רוטב חרדל',                            price:28.00},
-      {id:28, name:'לחי בקר',                orig:'Beef Cheek · Port Wine · Truffle Purée · Crunchy Almonds',                                     desc:'יין פורט · פורה כמהין · שקדים פריכים',             price:28.00},
-      {id:29, name:'המבורגר קנרי',           orig:'Canarian Burger · Angus Beef · Almogrote Cheese · Red Mojo Sauce · Bacon · Caramelized Onions', desc:"בקר אנגוס · גבינת אלמוגרוטה · רוטב מוחו אדום · בייקון · בצל מקורמל · צ'יפס", price:19.00},
-    ]
-  },
-  {
-    id:'fish', name:'מנות עיקריות – דגים ופירות ים', icon:'🐟',
-    items:[
-      {id:30, name:'תמנון פלמבה בברנדי',    orig:'Flambéed Octopus with Brandy · Iberian Land of Quinoa',                          desc:'ארץ קינואה איברית',                                        price:23.00},
-      {id:31, name:'סלמון חמוץ-מתוק במיסו', orig:'Sweet and Sour Salmon in Miso · Pineapple · Mango · Quinoa',                    desc:'אננס · מנגו · קינואה',                                    price:22.00},
-      {id:32, name:'ספגטי פירות ים',        orig:'Frutti di Mare Espaghetti · Prawn Velouté · Seafood Selection',                  desc:'מרק שרימפס · מבחר פירות ים',                              price:19.00},
-      {id:33, name:'בקלה קונפי',            orig:'Confit Cod · Mashed Potatoes · Caramelized Onion and Lemon Sauce · Crispy Leek', desc:'פורה תפוחי אדמה · בצל מקורמל ורוטב לימון · כרישה פריכה', price:28.00},
-      {id:34, name:'לברק אפוי',             orig:'Baked Sea Bass · Cherry Tomatoes · Canary Island Potatoes',                     desc:'עגבניות שרי · תפוחי אדמה קנריים',                         price:24.00},
-      {id:35, name:'פילה לברק',             orig:'Sea Bass Fillet · Carrot Purée · Asparagus · Cava Beurre Blanc',                desc:'פורה גזר · אספרגוס · רוטב בר בלן וקאווה',                 price:26.00},
-    ]
-  },
-  {
-    id:'rice', name:"מנות אורז (מינ' 2 אנשים, מחיר לנפש)", icon:'🥘',
+  { id:'tapas', name:'טאפאס', icon:'🫒', items:[
+    {id:1,  name:'תפוחי אדמה קנריים',          orig:'Canarian Potatoes · Homemade Mojos',                              desc:'מוחוס ביתיים',                                 price:7.50},
+    {id:2,  name:'מגש פרושוטו איבריקה 100%',    orig:'Platter of 100% Iberian Ham',                                    desc:'',                                             price:20.00},
+    {id:3,  name:'קלמרי פריך',                  orig:'Crispy Calamari · Cuttlefish Aioli',                             desc:'איולי דיונון',                                 price:15.00},
+    {id:4,  name:'פלפלי פאדרון ממולאים',        orig:'Stuffed Padrón Peppers · Almogrote & Palm Honey',                desc:'אלמוגרוטה ודבש כפות',                          price:14.00},
+    {id:5,  name:"ג'יוזה ברווז",                orig:'Duck Gyoza · Pedro Ximénez Sauce · Ponzu',                       desc:'רוטב פדרו חימנס · פונזו',                      price:12.00},
+    {id:6,  name:'שרימפס קוקוס תאילנדי פריך',  orig:'Crispy Thai Coconut Prawn · Tzatziki · Guacamole · Sweet Chili', desc:"צ'אצ'יקי · גוואקמולה · צ'ילי מתוק",           price:15.00},
+    {id:7,  name:'קרוקטות בית',                 orig:"House Croquettes · Chive Mayo · Chef's Selection",               desc:'מיונז עירית · בחירת שף',                       price:12.00},
+    {id:8,  name:"שרימפס שום · צ'וריסו",        orig:'Garlic Prawns · Chorizo',                                        desc:'',                                             price:14.00},
+    {id:9,  name:'קפה סנט ברשת',                orig:'Gratinated Scallops · Citrus Butter Pearls of the Sea',          desc:'פנינות חמאה הדרים מהים',                       price:16.00},
+  ]},
+  { id:'bread', name:"לחמים ופוקאצ'ה", icon:'🍞', items:[
+    {id:10, name:'לחם ושמן זית כתית',                             orig:'Bread & Extra Virgin Olive Oil',                    desc:'', price:2.00},
+    {id:11, name:'לחם עם עגבניה ושום',                            orig:'Bread with Tomato & Garlic',                        desc:'', price:4.00},
+    {id:12, name:'מוחוס קנריים · איולי ביתי',                    orig:'Canarian Mojos · Homemade Aioli',                   desc:'', price:2.10},
+    {id:13, name:"פוקאצ'ה עגבניות · פרמזן · פרושוטו · ארוגולה", orig:'Tomato Focaccia · Parmesan · Serrano Ham · Arugula', desc:'', price:12.00},
+    {id:14, name:"פוקאצ'ה כמהין · פרמזן · ארוגולה",             orig:'Truffle Focaccia · Parmesan · Arugula',             desc:'', price:10.00},
+    {id:15, name:"פוקאצ'ה רוזמרין ומלח פתיתים",                 orig:'Rosemary and Flaky Salt Focaccia',                  desc:'', price:8.50},
+  ]},
+  { id:'cold_starters', name:'פתיחים קרים', icon:'🥗', items:[
+    {id:16, name:"סביצ'ה סלמון", orig:"Salmon Ceviche · Nikkei Mango Tiger's Milk · Red Onion · Tobiko",         desc:'ניקיי מנגו טייגרס מילק · בצל אדום · טוביקו', price:18.00},
+    {id:17, name:'טרטר טונה',    orig:'Tuna Tartare · Avocado & Wasabi Mayo',                                    desc:'אבוקדו ומיונז ווסאבי',                        price:19.00},
+    {id:18, name:'טאטאקי טונה',  orig:'Tuna Tataki · Sésamo · Wasabi Ice Cream · Caramelized Onion with Ponzu', desc:'סזאם · גלידת ווסאבי · בצל מקורמל עם פונזו',  price:19.00},
+  ]},
+  { id:'soups', name:'מרקים ומנות צמחוניות', icon:'🥣', items:[
+    {id:19, name:'סלט חלומי פריך',          orig:'Crispy Halloumi Salad · Lettuce · Cherry Tomatoes · Citrus Fruits · Almonds', desc:'חסה · עגבניות שרי · פירות הדרים · שקדים', price:14.00},
+    {id:20, name:'מרק פירות ים סלאבי קרמי', orig:'Creamy Slavic Seafood Soup · Cod · Prawns · Salmon Pearls',                  desc:'בקלה · שרימפס · פנינות סלמון',            price:13.00},
+    {id:21, name:'מרק קרם דלעת צלויה',      orig:'Roasted Pumpkin Cream Soup',                                                 desc:'',                                        price:9.00},
+    {id:22, name:'ריזוטו פטריות',           orig:'Mushroom Risotto · Porcini Mushrooms · Parmesan Cheese',                    desc:'פטריות פורציני · גבינת פרמזן',            price:16.00},
+  ]},
+  { id:'meat', name:'מנות עיקריות – בשר', icon:'🥩', items:[
+    {id:23, name:'סטייק סינטה ים ויבשה',   orig:'Surf & Turf Sirloin Steak 200g · Glazed King Prawn · Truffled Purée · Café de Paris Sauce',    desc:'שרימפס מלך מגולס · פורה כמהין · רוטב קפה פאריז', price:27.00},
+    {id:24, name:"סטייק סינטה צלוי 220ג'", orig:'Grilled Sirloin Steak 220g · Rosemary Potatoes · Seasonal Vegetables · Peppercorn Sauce',       desc:'תפוחי אדמה רוזמרין · ירקות עונתיים · רוטב פלפל', price:26.00},
+    {id:25, name:'צלעות חזיר איבריקה',     orig:'Iberian Pork French Rack · Demi-glace · Roasted Tomato · Rosemary Potatoes',                    desc:'דמי-גלאס · עגבניה צלויה · תפוחי אדמה רוזמרין',   price:24.00},
+    {id:26, name:'עוף פסטורלי',            orig:'Free-Range Chicken Supreme · Beurre Blanc · Creamy Purée & Apple · Citrus Foam',               desc:'בר בלן · פורה קרמי ותפוח · קצף הדרים',            price:22.00},
+    {id:27, name:'כנף חזיר צלויה',         orig:'Roasted Pork Knuckle · Horseradish Purée · Mustard Sauce',                                     desc:'פורה חזרת · רוטב חרדל',                            price:28.00},
+    {id:28, name:'לחי בקר',                orig:'Beef Cheek · Port Wine · Truffle Purée · Crunchy Almonds',                                     desc:'יין פורט · פורה כמהין · שקדים פריכים',             price:28.00},
+    {id:29, name:'המבורגר קנרי',           orig:'Canarian Burger · Angus Beef · Almogrote Cheese · Red Mojo Sauce · Bacon · Caramelized Onions', desc:"בקר אנגוס · גבינת אלמוגרוטה · רוטב מוחו אדום · בייקון · בצל מקורמל · צ'יפס", price:19.00},
+  ]},
+  { id:'fish', name:'מנות עיקריות – דגים ופירות ים', icon:'🐟', items:[
+    {id:30, name:'תמנון פלמבה בברנדי',    orig:'Flambéed Octopus with Brandy · Iberian Land of Quinoa',                          desc:'ארץ קינואה איברית',                                        price:23.00},
+    {id:31, name:'סלמון חמוץ-מתוק במיסו', orig:'Sweet and Sour Salmon in Miso · Pineapple · Mango · Quinoa',                    desc:'אננס · מנגו · קינואה',                                    price:22.00},
+    {id:32, name:'ספגטי פירות ים',        orig:'Frutti di Mare Espaghetti · Prawn Velouté · Seafood Selection',                  desc:'מרק שרימפס · מבחר פירות ים',                              price:19.00},
+    {id:33, name:'בקלה קונפי',            orig:'Confit Cod · Mashed Potatoes · Caramelized Onion and Lemon Sauce · Crispy Leek', desc:'פורה תפוחי אדמה · בצל מקורמל ורוטב לימון · כרישה פריכה', price:28.00},
+    {id:34, name:'לברק אפוי',             orig:'Baked Sea Bass · Cherry Tomatoes · Canary Island Potatoes',                     desc:'עגבניות שרי · תפוחי אדמה קנריים',                         price:24.00},
+    {id:35, name:'פילה לברק',             orig:'Sea Bass Fillet · Carrot Purée · Asparagus · Cava Beurre Blanc',                desc:'פורה גזר · אספרגוס · רוטב בר בלן וקאווה',                 price:26.00},
+  ]},
+  { id:'rice', name:"מנות אורז (מינ' 2 אנשים, מחיר לנפש)", icon:'🥘',
     note:'מנות האורז מוכנות טריות עם אורז פרמיום מולנסיה. נבקש את סבלנותכם.',
     items:[
-      {id:36, name:'פאייה פירות ים',     orig:'Seafood Paella · Prawns · Squid · Fish · Mussels · Clams · King Prawns', desc:'שרימפס · דיונון · דג · מולים · צדפות · שרימפס מלך', price:23.00},
-      {id:37, name:'פאייה ים ויבשה',     orig:'Surf & Turf Paella · Duck Breast & Seafood · Ponzu',                    desc:'חזה ברווז ופירות ים · פונזו',                        price:26.00},
-      {id:38, name:'אורז שחור עם תמנון', orig:'Black Rice with Octopus · Mussels · Aioli',                            desc:'מולים · איולי',                                      price:25.00},
-      {id:39, name:'מרק לובסטר',         orig:'Lobster Soup',                                                         desc:'',                                                   price:35.00},
-    ]
-  },
-  {
-    id:'sides', name:'תוספות', icon:'🥔',
-    items:[
-      {id:40, name:'תפוחי אדמה קנריים',    orig:'Canarian Potatoes',      desc:'', price:6.00},
-      {id:41, name:"צ'יפס",                orig:'French Fries',            desc:'', price:3.50},
-      {id:42, name:'פורה תפוחי אדמה קרמי', orig:'Creamy Mashed Potatoes', desc:'', price:4.00},
-      {id:43, name:'ירקות צלויים',         orig:'Roasted Vegetables',      desc:'', price:6.50},
-      {id:44, name:'סלט גינה טרי',         orig:'Fresh Garden Salad',      desc:'', price:6.50},
-    ]
-  },
-  {
-    id:'kids', name:'תפריט ילדים', icon:'👶',
-    items:[
-      {id:45, name:'המבורגר עוף פריך', orig:'Crispy Chicken Burger · French Fries · Lettuce · Cheddar Cheese', desc:"צ'יפס · חסה · גבינת צ'דר", price:12.00},
-      {id:46, name:'ספגטי בולונז',     orig:'Spaghetti Bolognese · Tomato Sauce · Ground Beef · Parmesan',    desc:'רוטב עגבניות · בשר טחון · פרמזן', priceMini:8.00, price:14.00, hasSizes:true},
-    ]
-  },
-  {
-    id:'desserts', name:'קינוחים', icon:'🍮',
-    items:[
-      {id:47, name:'טירמיסו קלאסיקו', orig:'Tiramisu Clásico · Amaretto · Intense Coffee · Mascarpone · Cocoa', desc:'אמרטו · קפה עז · מסקרפונה · קקאו', price:8.00},
-      {id:48, name:"צ'יזקייק אפוי",   orig:'Baked Cheesecake · Fruit Coulis · Vanilla Ice Cream',             desc:'קולי פירות · גלידת וניל',          price:8.00},
-      {id:49, name:'פבלובה טרופית',   orig:'Pavlova Tropical · Cream · Passion Fruit · Ice Cream · Meringue',desc:'שמנת · פסיפלורה · גלידה · מרנג',  price:9.00},
-      {id:50, name:'טקסטורת שוקולד',  orig:'Chocolate Texture · Brownie · Cream · Cocoa · Ice Cream',        desc:'בראוני · שמנת · קקאו · גלידה',    price:9.00},
-      {id:51, name:'גלידות שונות',    orig:'Various Ice Creams · Seasonal Fruits',                            desc:'פירות עונה',                        price:6.50},
-    ]
-  }
+    {id:36, name:'פאייה פירות ים',     orig:'Seafood Paella · Prawns · Squid · Fish · Mussels · Clams · King Prawns', desc:'שרימפס · דיונון · דג · מולים · צדפות · שרימפס מלך', price:23.00},
+    {id:37, name:'פאייה ים ויבשה',     orig:'Surf & Turf Paella · Duck Breast & Seafood · Ponzu',                    desc:'חזה ברווז ופירות ים · פונזו',                        price:26.00},
+    {id:38, name:'אורז שחור עם תמנון', orig:'Black Rice with Octopus · Mussels · Aioli',                            desc:'מולים · איולי',                                      price:25.00},
+    {id:39, name:'מרק לובסטר',         orig:'Lobster Soup',                                                         desc:'',                                                   price:35.00},
+  ]},
+  { id:'sides', name:'תוספות', icon:'🥔', items:[
+    {id:40, name:'תפוחי אדמה קנריים',    orig:'Canarian Potatoes',      desc:'', price:6.00},
+    {id:41, name:"צ'יפס",                orig:'French Fries',            desc:'', price:3.50},
+    {id:42, name:'פורה תפוחי אדמה קרמי', orig:'Creamy Mashed Potatoes', desc:'', price:4.00},
+    {id:43, name:'ירקות צלויים',         orig:'Roasted Vegetables',      desc:'', price:6.50},
+    {id:44, name:'סלט גינה טרי',         orig:'Fresh Garden Salad',      desc:'', price:6.50},
+  ]},
+  { id:'kids', name:'תפריט ילדים', icon:'👶', items:[
+    {id:45, name:'המבורגר עוף פריך', orig:'Crispy Chicken Burger · French Fries · Lettuce · Cheddar Cheese', desc:"צ'יפס · חסה · גבינת צ'דר", price:12.00},
+    {id:46, name:'ספגטי בולונז',     orig:'Spaghetti Bolognese · Tomato Sauce · Ground Beef · Parmesan',    desc:'רוטב עגבניות · בשר טחון · פרמזן', priceMini:8.00, price:14.00, hasSizes:true},
+  ]},
+  { id:'desserts', name:'קינוחים', icon:'🍮', items:[
+    {id:47, name:'טירמיסו קלאסיקו', orig:'Tiramisu Clásico · Amaretto · Intense Coffee · Mascarpone · Cocoa', desc:'אמרטו · קפה עז · מסקרפונה · קקאו', price:8.00},
+    {id:48, name:"צ'יזקייק אפוי",   orig:'Baked Cheesecake · Fruit Coulis · Vanilla Ice Cream',             desc:'קולי פירות · גלידת וניל',          price:8.00},
+    {id:49, name:'פבלובה טרופית',   orig:'Pavlova Tropical · Cream · Passion Fruit · Ice Cream · Meringue', desc:'שמנת · פסיפלורה · גלידה · מרנג',  price:9.00},
+    {id:50, name:'טקסטורת שוקולד',  orig:'Chocolate Texture · Brownie · Cream · Cocoa · Ice Cream',        desc:'בראוני · שמנת · קקאו · גלידה',    price:9.00},
+    {id:51, name:'גלידות שונות',    orig:'Various Ice Creams · Seasonal Fruits',                            desc:'פירות עונה',                        price:6.50},
+  ]},
 ];
 
-// ============================================================
-// STATE
-// ============================================================
 let currentUser = '';
+let isAdmin = false;
 let allOrders = {};
 let currentSummaryTab = 'byPerson';
 
@@ -329,9 +324,6 @@ function setSyncing() { document.getElementById('syncDot').className = 'sync-dot
 function setSynced()  { document.getElementById('syncDot').className = 'sync-dot synced'; }
 function setError()   { document.getElementById('syncDot').className = 'sync-dot error'; }
 
-// ============================================================
-// INIT
-// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
   const inp = document.getElementById('nameInput');
   const btn = document.getElementById('startBtn');
@@ -343,67 +335,64 @@ function startOrdering() {
   const name = document.getElementById('nameInput').value.trim();
   if (!name) return;
   currentUser = name;
-
+  isAdmin = (name === 'טל');
   document.getElementById('loadingOverlay').classList.remove('hidden');
 
-  // Listen to all orders in real time
-  db.ref('orders').on('value', (snapshot) => {
+  db.ref('orders').on('value', snapshot => {
     const raw = snapshot.val() || {};
     allOrders = {};
     Object.entries(raw).forEach(([user, orders]) => {
       allOrders[user] = {};
       Object.entries(orders).forEach(([itemId, o]) => {
         const item = resolveItem(o.itemId || itemId);
-        if (item) allOrders[user][itemId] = { item, size: o.size || null };
+        if (item) allOrders[user][itemId] = { item, size: o.size || null, note: o.note || '' };
       });
     });
     if (!allOrders[currentUser]) allOrders[currentUser] = {};
     setSynced();
     document.getElementById('loadingOverlay').classList.add('hidden');
-    document.getElementById('headerName').textContent = 'שלום, ' + currentUser + '!';
+    document.getElementById('headerName').textContent = 'שלום, ' + currentUser + (isAdmin ? ' 👑' : '') + '!';
+    if (isAdmin) document.getElementById('adminBar').style.display = 'flex';
 
-    if (!document.getElementById('menuScreen').classList.contains('active') &&
-        !document.getElementById('summaryScreen').classList.contains('active') &&
-        !document.getElementById('reportScreen').classList.contains('active')) {
-      buildMenu();
-      showScreen('menuScreen');
-    } else {
-      rebuildMenuSelections();
-      updateCartCount();
-      if (document.getElementById('summaryScreen').classList.contains('active')) renderSummary();
-      if (document.getElementById('reportScreen').classList.contains('active')) renderReport();
+    const onMenu   = document.getElementById('menuScreen').classList.contains('active');
+    const onSum    = document.getElementById('summaryScreen').classList.contains('active');
+    const onReport = document.getElementById('reportScreen').classList.contains('active');
+
+    if (!onMenu && !onSum && !onReport) { buildMenu(); showScreen('menuScreen'); }
+    else {
+      if (onMenu) { rebuildMenuSelections(); updateCartCount(); }
+      if (onSum)  renderSummary();
+      if (onReport) renderReport();
     }
-  }, (err) => {
+  }, () => {
     setError();
     document.getElementById('loadingOverlay').classList.add('hidden');
-    showToast('⚠️ בעיית חיבור');
-    buildMenu();
-    showScreen('menuScreen');
+    buildMenu(); showScreen('menuScreen');
   });
 }
 
-function saveUserOrders() {
+function saveOrders(user) {
   setSyncing();
   const plain = {};
-  const userOrders = allOrders[currentUser] || {};
-  Object.entries(userOrders).forEach(([id, o]) => {
-    plain[id] = { itemId: o.item.id, size: o.size || null };
+  Object.entries(allOrders[user] || {}).forEach(([id, o]) => {
+    plain[id] = { itemId: o.item.id, size: o.size || null, note: o.note || '' };
   });
-  const ref = Object.keys(plain).length > 0
-    ? db.ref('orders/' + currentUser).set(plain)
-    : db.ref('orders/' + currentUser).remove();
-  ref.then(() => setSynced()).catch(() => { setError(); showToast('⚠️ שגיאת שמירה'); });
+  const ref = Object.keys(plain).length
+    ? db.ref('orders/' + user).set(plain)
+    : db.ref('orders/' + user).remove();
+  ref.then(setSynced).catch(() => { setError(); showToast('⚠️ שגיאת שמירה'); });
 }
 
-// ============================================================
-// BUILD MENU
-// ============================================================
+function clearAll() {
+  if (!confirm('למחוק את כל ההזמנות?')) return;
+  db.ref('orders').remove().then(() => showToast('🗑️ כל ההזמנות נמחקו'));
+}
+
+// ---- MENU ----
 function buildMenu() {
   const nav = document.getElementById('categoryNav');
   const body = document.getElementById('menuBody');
-  nav.innerHTML = '';
-  body.innerHTML = '';
-
+  nav.innerHTML = ''; body.innerHTML = '';
   MENU.forEach((cat, ci) => {
     const btn = document.createElement('button');
     btn.className = 'cat-btn' + (ci === 0 ? ' active' : '');
@@ -415,32 +404,16 @@ function buildMenu() {
     };
     nav.appendChild(btn);
 
-    const section = document.createElement('div');
-    section.className = 'category-section';
-    section.id = 'cat-' + cat.id;
-
+    const sec = document.createElement('div');
+    sec.className = 'category-section'; sec.id = 'cat-' + cat.id;
     const title = document.createElement('div');
-    title.className = 'category-title';
-    title.textContent = cat.icon + ' ' + cat.name;
-    section.appendChild(title);
-
-    if (cat.note) {
-      const note = document.createElement('div');
-      note.className = 'category-note';
-      note.textContent = cat.note;
-      section.appendChild(note);
-    }
-
-    cat.items.forEach(item => section.appendChild(buildMenuItem(item)));
-    body.appendChild(section);
-
-    if (ci < MENU.length - 1) {
-      const div = document.createElement('div');
-      div.className = 'section-divider';
-      body.appendChild(div);
-    }
+    title.className = 'category-title'; title.textContent = cat.icon + ' ' + cat.name;
+    sec.appendChild(title);
+    if (cat.note) { const n = document.createElement('div'); n.className = 'category-note'; n.textContent = cat.note; sec.appendChild(n); }
+    cat.items.forEach(item => sec.appendChild(buildMenuItem(item)));
+    body.appendChild(sec);
+    if (ci < MENU.length - 1) { const d = document.createElement('div'); d.className = 'section-divider'; body.appendChild(d); }
   });
-
   updateCartCount();
 }
 
@@ -455,7 +428,6 @@ function buildMenuItem(item) {
   const order = allOrders[currentUser] || {};
   const entry = order[item.id];
   const sel = !!entry;
-
   const el = document.createElement('div');
   el.className = 'menu-item' + (sel ? ' selected' : '');
   el.id = 'item-' + item.id;
@@ -472,9 +444,10 @@ function buildMenuItem(item) {
       (item.desc ? '<div class="item-desc">' + item.desc + '</div>' : '') +
       (item.hasSizes ?
         '<div class="item-size-options">' +
-          '<button class="size-btn ' + (entry && entry.size === 'מיני' ? 'selected' : '') + '" onclick="selectSize(event,' + item.id + ',\'מיני\')">מיני ' + item.priceMini.toFixed(2) + '€</button>' +
-          '<button class="size-btn ' + (entry && entry.size === 'רגיל' ? 'selected' : '') + '" onclick="selectSize(event,' + item.id + ',\'רגיל\')">רגיל ' + item.price.toFixed(2) + '€</button>' +
+          '<button class="size-btn ' + (entry && entry.size==='מיני' ? 'selected':'') + '" onclick="selectSize(event,' + item.id + ',\'מיני\')">מיני ' + item.priceMini.toFixed(2) + '€</button>' +
+          '<button class="size-btn ' + (entry && entry.size==='רגיל' ? 'selected':'') + '" onclick="selectSize(event,' + item.id + ',\'רגיל\')">רגיל ' + item.price.toFixed(2) + '€</button>' +
         '</div>' : '') +
+      (sel ? '<div class="item-note-wrap"><input class="item-note-input" placeholder="💬 הערה (רוטב בצד, ללא בצל...)" value="' + (entry.note||'').replace(/"/g,'&quot;') + '" onchange="updateNote(event,' + item.id + ')" onclick="event.stopPropagation()" /></div>' : '') +
     '</div>' +
     '<div class="item-price">' + priceStr + '</div>';
 
@@ -485,39 +458,40 @@ function buildMenuItem(item) {
 function toggleItem(item) {
   if (!allOrders[currentUser]) allOrders[currentUser] = {};
   if (allOrders[currentUser][item.id]) delete allOrders[currentUser][item.id];
-  else allOrders[currentUser][item.id] = { item, size: null };
-  saveUserOrders();
-  refreshItem(item);
+  else allOrders[currentUser][item.id] = { item, size: null, note: '' };
+  saveOrders(currentUser);
+  const el = document.getElementById('item-' + item.id);
+  if (el) el.replaceWith(buildMenuItem(item));
   updateCartCount();
+}
+
+function updateNote(e, itemId) {
+  if (allOrders[currentUser] && allOrders[currentUser][itemId]) {
+    allOrders[currentUser][itemId].note = e.target.value;
+    saveOrders(currentUser);
+  }
 }
 
 function selectSize(e, itemId, size) {
   e.stopPropagation();
   const item = resolveItem(itemId);
-  if (!item) return;
-  if (!allOrders[currentUser]) allOrders[currentUser] = {};
-  allOrders[currentUser][itemId] = { item, size };
-  saveUserOrders();
-  refreshItem(item);
-  updateCartCount();
-}
-
-function refreshItem(item) {
+  if (!item || !allOrders[currentUser]) return;
+  const existing = allOrders[currentUser][itemId] || {};
+  allOrders[currentUser][itemId] = { item, size, note: existing.note || '' };
+  saveOrders(currentUser);
   const el = document.getElementById('item-' + item.id);
   if (el) el.replaceWith(buildMenuItem(item));
+  updateCartCount();
 }
 
 function updateCartCount() {
   document.getElementById('cartCount').textContent = Object.keys(allOrders[currentUser] || {}).length;
 }
 
-// ============================================================
-// SUMMARY
-// ============================================================
+// ---- SUMMARY ----
 function goToSummary() {
   document.getElementById('summaryTime').textContent = new Date().toLocaleString('he-IL');
-  renderSummary();
-  showScreen('summaryScreen');
+  renderSummary(); showScreen('summaryScreen');
 }
 
 function showSummaryTab(tab) {
@@ -542,20 +516,68 @@ function renderByPerson(container) {
     if (!items.length) return;
     const total = items.reduce((s, o) => s + itemPrice(o), 0);
     grand += total;
+    const canEdit = user === currentUser || isAdmin;
     const box = document.createElement('div');
     box.className = 'person-order';
-    box.innerHTML = '<div class="person-name">👤 ' + user + '<span class="person-total">' + total.toFixed(2) + '€</span></div>';
+
+    const nameRow = document.createElement('div');
+    nameRow.className = 'person-name-row';
+    nameRow.innerHTML = '👤 ' + user + '<span class="person-total">' + total.toFixed(2) + '€</span>';
+    box.appendChild(nameRow);
+
     items.forEach(o => {
       const row = document.createElement('div');
       row.className = 'order-item-row';
-      row.innerHTML =
-        '<div><div>' + o.item.name + (o.size ? ' (' + o.size + ')' : '') + '</div>' +
-        '<div class="order-item-orig">' + o.item.orig + '</div></div>' +
-        '<span class="order-item-price">' + itemPrice(o).toFixed(2) + '€</span>';
+
+      const top = document.createElement('div');
+      top.className = 'order-item-top';
+      top.innerHTML = '<div class="order-item-name">' + o.item.name + (o.size ? ' (' + o.size + ')' : '') +
+        '<div class="order-item-orig">' + o.item.orig + '</div></div>';
+
+      const right = document.createElement('div');
+      right.className = 'order-item-right';
+      right.innerHTML = '<span class="order-item-price">' + itemPrice(o).toFixed(2) + '€</span>';
+
+      if (canEdit) {
+        const delBtn = document.createElement('button');
+        delBtn.className = 'del-btn';
+        delBtn.textContent = '✕';
+        delBtn.onclick = () => {
+          delete allOrders[user][o.item.id];
+          saveOrders(user);
+          renderSummary();
+          if (user === currentUser) updateCartCount();
+        };
+        right.appendChild(delBtn);
+      }
+      top.appendChild(right);
+      row.appendChild(top);
+
+      if (canEdit) {
+        const noteInp = document.createElement('input');
+        noteInp.className = 'note-edit';
+        noteInp.placeholder = '💬 הוסף הערה (רוטב בצד, ללא בצל...)';
+        noteInp.value = o.note || '';
+        noteInp.onchange = e => {
+          if (allOrders[user] && allOrders[user][o.item.id]) {
+            allOrders[user][o.item.id].note = e.target.value;
+            saveOrders(user);
+          }
+        };
+        row.appendChild(noteInp);
+      } else if (o.note) {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'order-item-note';
+        noteDiv.textContent = '💬 ' + o.note;
+        row.appendChild(noteDiv);
+      }
+
       box.appendChild(row);
     });
+
     container.appendChild(box);
   });
+
   const gt = document.createElement('div');
   gt.className = 'grand-total-box';
   gt.innerHTML = '<span class="grand-total-label">סה״כ לתשלום</span><span class="grand-total-amount">' + grand.toFixed(2) + '€</span>';
@@ -568,21 +590,20 @@ function renderByDish(container) {
   Object.values(map).sort((a,b) => b.people.length - a.people.length).forEach(d => {
     const card = document.createElement('div');
     card.className = 'dish-card';
+    const notesArr = d.notes.map((n,i) => n ? d.people[i] + ': ' + n : '').filter(Boolean);
     card.innerHTML =
       '<div><span class="dish-count">×' + d.people.length + '</span><span class="dish-name-he">' + d.item.name + (d.size ? ' (' + d.size + ')' : '') + '</span></div>' +
       '<div class="dish-name-en">' + d.item.orig + '</div>' +
-      '<div class="dish-people">👥 ' + d.people.join(' · ') + '</div>';
+      '<div class="dish-people">👥 ' + d.people.join(' · ') + '</div>' +
+      (notesArr.length ? '<div class="dish-notes">💬 ' + notesArr.join(' · ') + '</div>' : '');
     container.appendChild(card);
   });
 }
 
-// ============================================================
-// REPORT
-// ============================================================
+// ---- REPORT ----
 function goToReport() {
   document.getElementById('reportTime').textContent = new Date().toLocaleString('he-IL');
-  renderReport();
-  showScreen('reportScreen');
+  renderReport(); showScreen('reportScreen');
 }
 
 function renderReport() {
@@ -595,16 +616,17 @@ function renderReport() {
   h1.textContent = '🍽️ מנות לפי כמות';
   content.appendChild(h1);
 
-  if (!Object.keys(map).length) {
-    content.innerHTML += emptyHTML();
-  } else {
+  if (!Object.keys(map).length) { content.innerHTML += emptyHTML(); }
+  else {
     Object.values(map).sort((a,b) => b.people.length - a.people.length).forEach(d => {
       const card = document.createElement('div');
       card.className = 'dish-card';
+      const notesArr = d.notes.map((n,i) => n ? d.people[i] + ': ' + n : '').filter(Boolean);
       card.innerHTML =
         '<div><span class="dish-count">×' + d.people.length + '</span><span class="dish-name-he">' + d.item.name + (d.size ? ' (' + d.size + ')' : '') + '</span></div>' +
         '<div class="dish-name-en">' + d.item.orig + '</div>' +
-        '<div class="dish-people">👥 ' + d.people.join(', ') + '</div>';
+        '<div class="dish-people">👥 ' + d.people.join(', ') + '</div>' +
+        (notesArr.length ? '<div class="dish-notes">💬 ' + notesArr.join(' · ') + '</div>' : '');
       content.appendChild(card);
     });
   }
@@ -622,8 +644,8 @@ function renderReport() {
     grand += total;
     const row = document.createElement('div');
     row.className = 'order-item-row';
-    row.style.cssText = 'background:#fff;padding:0.7rem 1rem;border-radius:8px;margin-bottom:0.5rem;font-size:1rem;';
-    row.innerHTML = '<span>👤 ' + user + '</span><span class="order-item-price" style="font-size:1rem">' + total.toFixed(2) + '€</span>';
+    row.style.cssText = 'background:#fff;padding:0.7rem 1rem;border-radius:8px;margin-bottom:0.5rem;';
+    row.innerHTML = '<div class="order-item-top"><span style="font-size:0.95rem">👤 ' + user + '</span><span class="order-item-price" style="font-size:0.95rem">' + total.toFixed(2) + '€</span></div>';
     content.appendChild(row);
   });
 
@@ -633,65 +655,55 @@ function renderReport() {
   content.appendChild(gt);
 }
 
-// ============================================================
-// COPY
-// ============================================================
+// ---- COPY ----
 function copyReport() {
   const map = buildDishMap();
   let txt = '🍽️ הזמנות מהמסעדה\n' + '─'.repeat(30) + '\n\n📋 מנות:\n';
   Object.values(map).sort((a,b) => b.people.length - a.people.length).forEach(d => {
     txt += '×' + d.people.length + '  ' + d.item.name + (d.size ? ' (' + d.size + ')' : '') + '\n';
     txt += '   ' + d.item.orig + '\n';
-    txt += '   👥 ' + d.people.join(', ') + '\n\n';
+    d.people.forEach((p,i) => { txt += '   👤 ' + p + (d.notes[i] ? ' — ' + d.notes[i] : '') + '\n'; });
+    txt += '\n';
   });
   txt += '💰 סה״כ לאדם:\n';
   let grand = 0;
   Object.entries(allOrders).forEach(([user, orders]) => {
     const items = Object.values(orders);
     if (!items.length) return;
-    const total = items.reduce((s, o) => s + itemPrice(o), 0);
+    const total = items.reduce((s,o) => s + itemPrice(o), 0);
     grand += total;
     txt += '👤 ' + user + ': ' + total.toFixed(2) + '€\n';
   });
   txt += '\n💶 סה״כ: ' + grand.toFixed(2) + '€\n';
-  navigator.clipboard.writeText(txt)
-    .then(() => showToast('✅ הדו״ח הועתק!'))
-    .catch(() => showToast('❌ שגיאה בהעתקה'));
+  navigator.clipboard.writeText(txt).then(() => showToast('✅ הועתק!')).catch(() => showToast('❌ שגיאה'));
 }
 
-// ============================================================
-// HELPERS
-// ============================================================
+// ---- HELPERS ----
 function buildDishMap() {
   const map = {};
   Object.entries(allOrders).forEach(([user, orders]) => {
     Object.values(orders).forEach(o => {
-      const key = o.item.id + (o.size || '');
-      if (!map[key]) map[key] = { item: o.item, size: o.size, people: [] };
+      const key = o.item.id + (o.size||'');
+      if (!map[key]) map[key] = { item:o.item, size:o.size, people:[], notes:[] };
       map[key].people.push(user);
+      map[key].notes.push(o.note||'');
     });
   });
   return map;
 }
 
-function itemPrice(o) {
-  return o.size === 'מיני' ? (o.item.priceMini || o.item.price) : o.item.price;
-}
-
-function emptyHTML() {
-  return '<div class="empty-state"><span class="emoji">🍽️</span><p>אין הזמנות עדיין</p></div>';
-}
+function itemPrice(o) { return o.size==='מיני' ? (o.item.priceMini||o.item.price) : o.item.price; }
+function emptyHTML() { return '<div class="empty-state"><span class="emoji">🍽️</span><p>אין הזמנות עדיין</p></div>'; }
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0,0);
 }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 </script>
