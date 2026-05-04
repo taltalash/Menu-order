@@ -22,19 +22,13 @@
   --red: #c0392b;
   --gold: #8b7355;
 }
-
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:15px; }
-
 .screen { display:none; }
 .screen.active { display:block; }
-
-/* ── LANG TOGGLE ── */
 .lang-toggle { position:fixed; top:14px; right:14px; z-index:999; background:var(--surface); border:1px solid var(--border); border-radius:6px; display:flex; overflow:hidden; }
 .lang-btn { padding:5px 10px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:0.5px; border:none; background:transparent; cursor:pointer; color:var(--text-3); transition:all 0.15s; }
 .lang-btn.active { background:var(--accent); color:#fff; }
-
-/* ── NAME SCREEN ── */
 #nameScreen { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; }
 #nameScreen.active { display:flex; }
 .brand { font-family:'Playfair Display',serif; font-size:2rem; font-weight:400; letter-spacing:-0.5px; margin-bottom:0.25rem; }
@@ -48,6 +42,22 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .btn:disabled { opacity:0.35; cursor:not-allowed; }
 .btn:active { opacity:0.85; }
 
+/* ── MENU PICKER in registration ── */
+.picker-section { margin-top:4px; width:100%; }
+.picker-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-3); margin-bottom:10px; display:block; }
+.picker-card { display:flex; align-items:center; gap:11px; width:100%; padding:12px 13px; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; cursor:pointer; transition:all 0.15s; text-align:left; margin-bottom:7px; }
+.picker-card:hover { border-color:var(--accent); background:var(--accent-soft); }
+.picker-card.sel { border-color:var(--accent); background:var(--accent-soft); }
+.picker-icon { font-size:1.2rem; flex-shrink:0; }
+.picker-txt { flex:1; min-width:0; }
+.picker-name { font-size:13px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.picker-sub { font-size:11px; color:var(--text-3); margin-top:1px; }
+.picker-chk { width:18px; height:18px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:10px; color:transparent; transition:all 0.15s; }
+.picker-card.sel .picker-chk { background:var(--accent); border-color:var(--accent); color:#fff; }
+.picker-or { font-size:11px; color:var(--text-3); text-align:center; margin:6px 0; }
+.picker-upload-btn { width:100%; padding:11px; background:transparent; border:1px dashed var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text-2); cursor:pointer; transition:all 0.15s; margin-bottom:10px; }
+.picker-upload-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-soft); }
+
 /* ── ADMIN SETUP ── */
 #adminScreen { min-height:100vh; }
 #adminScreen.active { display:block; }
@@ -55,10 +65,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .admin-top h1 { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:400; }
 .admin-top p { font-size:12px; color:var(--text-2); margin-top:3px; }
 .admin-body { padding:20px; padding-bottom:90px; }
-
 .section-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text-3); margin-bottom:10px; margin-top:20px; }
 .section-label:first-child { margin-top:0; }
-
 .preset-btn { display:flex; align-items:center; gap:12px; width:100%; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; cursor:pointer; transition:all 0.15s; text-align:left; margin-bottom:8px; }
 .preset-btn.active { border-color:var(--accent); background:var(--accent-soft); }
 .preset-icon { font-size:1.3rem; flex-shrink:0; }
@@ -67,41 +75,35 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .preset-check { margin-left:auto; width:18px; height:18px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.15s; flex-shrink:0; }
 .preset-check svg { width:10px; height:10px; fill:white; }
 .preset-btn.active .preset-check { opacity:1; }
-
+.fb-badge { display:inline-flex; align-items:center; gap:3px; font-size:10px; padding:2px 7px; border-radius:10px; background:var(--green-soft); color:var(--green); font-weight:500; margin-top:3px; }
 .tab-switch { display:flex; background:var(--accent-soft); border-radius:8px; padding:3px; margin-bottom:14px; }
 .tab-switch-btn { flex:1; padding:8px; border:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; border-radius:6px; color:var(--text-2); transition:all 0.15s; }
 .tab-switch-btn.active { background:var(--surface); color:var(--accent); box-shadow:0 1px 3px rgba(0,0,0,0.08); }
-
 .panel { display:none; }
 .panel.active { display:block; }
-
 .text-input { width:100%; padding:12px 14px; background:var(--surface); border:1px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); outline:none; transition:border-color 0.2s; margin-bottom:10px; }
 .text-input:focus { border-color:var(--accent); }
 .text-input::placeholder { color:var(--text-3); }
-
 .upload-zone { border:1.5px dashed var(--border); border-radius:10px; padding:28px 20px; text-align:center; cursor:pointer; transition:all 0.15s; margin-bottom:10px; }
 .upload-zone:hover { border-color:var(--accent); background:var(--accent-soft); }
 .upload-zone .icon { font-size:1.8rem; margin-bottom:8px; }
 .upload-zone p { font-size:12px; color:var(--text-2); line-height:1.5; }
 .upload-zone strong { color:var(--accent); font-weight:500; }
 #photoInput { display:none; }
-
 .photo-grid { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
 .photo-thumb { position:relative; width:72px; height:72px; border-radius:8px; overflow:hidden; }
 .photo-thumb img { width:100%; height:100%; object-fit:cover; }
 .photo-thumb button { position:absolute; top:3px; right:3px; background:rgba(0,0,0,0.6); color:#fff; border:none; border-radius:50%; width:16px; height:16px; font-size:9px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
-
 .scan-btn { width:100%; padding:12px; background:var(--accent-soft); border:1px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--accent); cursor:pointer; transition:all 0.15s; margin-bottom:6px; }
 .scan-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
 .scan-btn:disabled { opacity:0.4; cursor:not-allowed; }
 .scan-status { font-size:12px; color:var(--text-2); text-align:center; min-height:18px; }
 .scan-status.loading { color:var(--gold); }
-
 .scan-result { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; margin-top:10px; }
 .scan-result-title { font-size:12px; font-weight:600; color:var(--green); margin-bottom:6px; }
 .scan-result-item { font-size:11px; color:var(--text-2); padding:3px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; }
 .scan-result-item:last-child { border-bottom:none; }
-
+.fb-save-note { font-size:11px; color:var(--green); margin-top:8px; padding:8px 10px; background:var(--green-soft); border-radius:6px; }
 .admin-footer { position:fixed; bottom:0; left:0; right:0; background:var(--surface); border-top:1px solid var(--border); padding:12px 20px; display:flex; gap:8px; }
 .btn-outline { flex:1; padding:12px; background:transparent; border:1px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--text-2); cursor:pointer; }
 .btn-fill { flex:2; padding:12px; background:var(--accent); border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:#fff; cursor:pointer; }
@@ -118,22 +120,18 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 .order-pill { display:flex; align-items:center; gap:6px; background:var(--accent); color:#fff; border:none; border-radius:20px; padding:7px 13px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; }
 .order-pill .count { background:rgba(255,255,255,0.25); border-radius:10px; padding:1px 6px; font-size:11px; }
-
 .admin-strip { background:var(--accent-soft); border-bottom:1px solid var(--border); padding:8px 18px; display:flex; align-items:center; gap:8px; font-size:11px; color:var(--text-2); }
 .strip-btn { padding:4px 10px; border-radius:5px; border:none; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; cursor:pointer; }
 .strip-btn.gold { background:var(--accent); color:#fff; }
 .strip-btn.red { background:var(--red); color:#fff; margin-left:auto; }
-
 .cat-nav { display:flex; gap:6px; padding:12px 18px; overflow-x:auto; scrollbar-width:none; background:var(--bg); border-bottom:1px solid var(--border); }
 .cat-nav::-webkit-scrollbar { display:none; }
 .cat-pill { flex-shrink:0; padding:6px 14px; border-radius:20px; border:1px solid var(--border); background:var(--surface); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text-2); cursor:pointer; transition:all 0.15s; white-space:nowrap; }
 .cat-pill.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-
 .menu-content { padding:0 0 90px; }
 .cat-block { padding:18px 18px 6px; }
 .cat-heading { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text-3); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
 .cat-heading::after { content:''; flex:1; height:1px; background:var(--border); }
-
 .item-card { background:var(--surface); border-radius:10px; padding:14px; margin-bottom:8px; display:flex; gap:12px; align-items:flex-start; border:1.5px solid transparent; cursor:pointer; transition:all 0.15s; }
 .item-card:active { transform:scale(0.99); }
 .item-card.selected { border-color:var(--green); background:var(--green-soft); }
@@ -155,7 +153,6 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .note-field:focus { border-color:var(--accent); }
 .note-field::placeholder { color:var(--text-3); }
 .divider { height:1px; background:var(--border); margin:4px 0 12px; }
-
 .bottom-bar { position:fixed; bottom:0; left:0; right:0; background:var(--surface); border-top:1px solid var(--border); padding:12px 18px; display:flex; gap:8px; }
 .bb-btn { flex:1; padding:12px; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; border:none; transition:opacity 0.15s; }
 .bb-btn:active { opacity:0.8; }
@@ -168,17 +165,14 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .page-top h1 { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:400; }
 .page-top p { font-size:11px; color:var(--text-3); margin-top:3px; }
 .page-body { padding:16px 18px 90px; }
-
 .seg-ctrl { display:flex; background:var(--accent-soft); border-radius:8px; padding:3px; margin-bottom:14px; }
 .seg-btn { flex:1; padding:8px; border:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; border-radius:6px; color:var(--text-2); transition:all 0.15s; }
 .seg-btn.active { background:var(--surface); color:var(--accent); box-shadow:0 1px 3px rgba(0,0,0,0.08); }
-
 .person-block { background:var(--surface); border-radius:10px; margin-bottom:10px; overflow:hidden; border:1px solid var(--border); }
 .person-header { padding:12px 14px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
 .person-avatar { width:28px; height:28px; border-radius:50%; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:var(--accent); flex-shrink:0; }
 .person-name-text { font-size:14px; font-weight:500; }
 .person-amt { font-family:'Playfair Display',serif; font-size:13px; color:var(--gold); margin-left:auto; }
-
 .order-row { padding:10px 14px; display:flex; flex-direction:column; border-bottom:1px solid var(--border); }
 .order-row:last-child { border-bottom:none; }
 .order-row-top { display:flex; align-items:center; gap:8px; }
@@ -190,14 +184,12 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .order-note-view { font-size:11px; color:var(--green); margin-top:3px; }
 .order-note-input { width:100%; margin-top:6px; padding:6px 9px; background:var(--bg); border:1px solid var(--border); border-radius:6px; font-family:'DM Sans',sans-serif; font-size:11px; color:var(--text); outline:none; }
 .order-note-input:focus { border-color:var(--accent); }
-
 .dish-row { background:var(--surface); border-radius:10px; padding:12px 14px; margin-bottom:8px; border:1px solid var(--border); }
 .dish-row-top { display:flex; align-items:flex-start; gap:8px; }
 .dish-badge { background:var(--accent); color:#fff; border-radius:4px; padding:2px 7px; font-size:11px; font-weight:600; flex-shrink:0; }
 .dish-title { font-size:13px; font-weight:500; flex:1; }
 .dish-people-text { font-size:11px; color:var(--text-3); margin-top:5px; }
 .dish-notes-text { font-size:11px; color:var(--green); margin-top:2px; }
-
 .total-bar { background:var(--accent); color:#fff; border-radius:10px; padding:14px 16px; display:flex; justify-content:space-between; align-items:center; margin-top:14px; margin-bottom:14px; }
 .total-label { font-size:12px; opacity:0.7; letter-spacing:0.5px; }
 .total-amt { font-family:'Playfair Display',serif; font-size:1.6rem; }
@@ -211,41 +203,35 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 .person-total-row { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
 .person-total-name { font-size:13px; font-weight:500; }
 .person-total-price { font-family:'Playfair Display',serif; font-size:13px; color:var(--gold); }
-
 .empty { text-align:center; padding:3rem 1rem; color:var(--text-3); }
 .empty .e-icon { font-size:2rem; margin-bottom:8px; display:block; }
 .empty p { font-size:13px; }
 
-/* ── LOADING ── */
+/* ── LOADING / TOAST ── */
 .loading-screen { position:fixed; inset:0; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; gap:14px; }
 .loading-screen.hidden { display:none; }
 .loader { width:32px; height:32px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.7s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
 .loading-label { font-size:12px; color:var(--text-2); letter-spacing:0.5px; }
-
-/* TOAST */
 .toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--accent); color:#fff; padding:9px 18px; border-radius:20px; font-size:12px; font-weight:500; z-index:9999; opacity:0; transition:all 0.25s; pointer-events:none; white-space:nowrap; }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
 
-<!-- LANG TOGGLE -->
 <div class="lang-toggle" id="langToggle">
   <button class="lang-btn active" onclick="setLang('en')">EN</button>
   <button class="lang-btn" onclick="setLang('de')">DE</button>
 </div>
 
-<!-- LOADING -->
 <div class="loading-screen hidden" id="loader">
   <div class="loader"></div>
   <div class="loading-label" id="loaderText">Loading…</div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ── NAME ── -->
+<!-- ── NAME / REGISTRATION ── -->
 <div class="screen active" id="nameScreen">
   <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem">
     <div class="brand">Table</div>
@@ -253,7 +239,16 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
     <div class="name-card" style="margin-top:2.5rem">
       <label id="t-name-label">Your name</label>
       <input type="text" id="nameInput" placeholder="Enter your name…" maxlength="30" />
-      <button class="btn" id="startBtn" disabled onclick="startOrdering()" id="t-start-btn">Continue →</button>
+
+      <!-- Menu picker — shown for non-admin after typing name -->
+      <div class="picker-section" id="menuPickerSection" style="display:none">
+        <span class="picker-label" id="t-pick-menu">Choose a menu</span>
+        <div id="menuPickerList"></div>
+        <div class="picker-or">— or —</div>
+        <button class="picker-upload-btn" onclick="goToAdminForUser()">✦ Upload new menu with AI</button>
+      </div>
+
+      <button class="btn" id="startBtn" disabled onclick="startOrdering()" style="margin-top:4px">Continue →</button>
     </div>
   </div>
 </div>
@@ -265,7 +260,6 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
     <p id="t-admin-sub">Choose or upload a menu</p>
   </div>
   <div class="admin-body">
-
     <div class="section-label" id="t-saved-menus">Saved menus</div>
     <button class="preset-btn active" id="preset-lafinca" onclick="selectPreset('lafinca')">
       <span class="preset-icon">🌿</span>
@@ -275,14 +269,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
       </div>
       <div class="preset-check"><svg viewBox="0 0 12 9"><path d="M1 4.5l3 3 7-7" stroke="white" stroke-width="1.8" fill="none"/></svg></div>
     </button>
-    <button class="preset-btn" id="preset-last" onclick="selectPreset('last')" style="display:none">
-      <span class="preset-icon">⭐</span>
-      <div>
-        <div class="preset-name" id="lastMenuLabel">Last uploaded</div>
-        <div class="preset-sub" id="t-last-sub">Previously saved</div>
-      </div>
-      <div class="preset-check"><svg viewBox="0 0 12 9"><path d="M1 4.5l3 3 7-7" stroke="white" stroke-width="1.8" fill="none"/></svg></div>
-    </button>
+    <!-- Firebase-saved menus injected here by JS -->
+    <div id="firebaseMenusList"></div>
 
     <div class="section-label" style="margin-top:20px" id="t-new-menu">Upload new menu</div>
     <input type="text" class="text-input" id="newMenuName" placeholder="Restaurant name…" />
@@ -292,7 +280,6 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
       <button class="tab-switch-btn" onclick="switchTab('url')" id="tab-url">🔗 Link</button>
     </div>
 
-    <!-- PHOTOS -->
     <div class="panel active" id="panel-photos">
       <div class="upload-zone" onclick="document.getElementById('photoInput').click()">
         <div class="icon">📷</div>
@@ -305,14 +292,12 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
       <div id="photoResult"></div>
     </div>
 
-    <!-- URL -->
     <div class="panel" id="panel-url">
       <input type="url" class="text-input" id="menuUrl" placeholder="https://restaurant.com/menu" />
       <button class="scan-btn" id="urlScanBtn" onclick="scanUrl()">✦ Read menu from link</button>
       <div class="scan-status" id="urlStatus"></div>
       <div id="urlResult"></div>
     </div>
-
   </div>
   <div class="admin-footer">
     <button class="btn-outline" onclick="skipSetup()" id="t-skip">Skip</button>
@@ -353,8 +338,8 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
   </div>
   <div class="page-body">
     <div class="seg-ctrl">
-      <button class="seg-btn active" onclick="setSummaryTab('person')" id="tab-person" data-t="By person">By person</button>
-      <button class="seg-btn" onclick="setSummaryTab('dish')" id="tab-dish" data-t="By dish">By dish</button>
+      <button class="seg-btn active" onclick="setSummaryTab('person')" id="tab-person">By person</button>
+      <button class="seg-btn" onclick="setSummaryTab('dish')" id="tab-dish">By dish</button>
     </div>
     <div id="summaryContent"></div>
   </div>
@@ -397,9 +382,9 @@ const db = firebase.database();
 // ── TRANSLATIONS ──
 const T = {
   en: {
-    tagline:'Restaurant ordering', nameLabel:'Your name', namePh:'Enter your name…', startBtn:'Continue →',
+    tagline:'Restaurant ordering', nameLabel:'Your name', namePh:'Enter your name…',
     adminTitle:'Menu Setup', adminSub:'Choose or upload a menu', savedMenus:'Saved menus', newMenu:'Upload new menu',
-    skip:'Skip', apply:'Apply menu', lastSub:'Previously saved',
+    skip:'Skip', apply:'Apply menu',
     ordered:'Ordered', changeMenu:'Change menu', clearAll:'Clear all',
     reportBtn:'Report', doneBtn:'Done →', back:'← Back', copy:'Copy', report:'Report', copyReport:'Copy report',
     summaryTitle:'Order Summary', reportTitle:'Order Report',
@@ -410,14 +395,17 @@ const T = {
     empty:'No orders yet', loading:'Loading…', saving:'Saving…',
     scanAI:'✦ Scan menu with AI', scanLink:'✦ Read menu from link',
     scanLoading:'AI is reading the menu…', scanOk:'✓ Menu extracted', scanFail:'Scan failed. Try again.',
-    addPhotos:'Tap to add photos', addPhotosSub:'Screenshots of the menu',
     deleted:'Cleared ✓', copied:'Copied ✓', applied:'Menu applied ✓', error:'Error saving',
     deleteConfirm:'Delete all orders?',
+    pickMenu:'Choose a menu',
+    savedInFb:'Saved in Firebase',
+    menuSavedFb:'Menu saved to Firebase ✓',
+    willSaveToFb:'Will be saved to Firebase when applied',
   },
   de: {
-    tagline:'Restaurantbestellungen', nameLabel:'Dein Name', namePh:'Namen eingeben…', startBtn:'Weiter →',
+    tagline:'Restaurantbestellungen', nameLabel:'Dein Name', namePh:'Namen eingeben…',
     adminTitle:'Menü-Einrichtung', adminSub:'Menü auswählen oder hochladen', savedMenus:'Gespeicherte Menüs', newMenu:'Neues Menü hochladen',
-    skip:'Überspringen', apply:'Menü anwenden', lastSub:'Zuletzt gespeichert',
+    skip:'Überspringen', apply:'Menü anwenden',
     ordered:'Bestellt', changeMenu:'Menü ändern', clearAll:'Alles löschen',
     reportBtn:'Bericht', doneBtn:'Fertig →', back:'← Zurück', copy:'Kopieren', report:'Bericht', copyReport:'Bericht kopieren',
     summaryTitle:'Bestellübersicht', reportTitle:'Bestellbericht',
@@ -428,9 +416,12 @@ const T = {
     empty:'Noch keine Bestellungen', loading:'Laden…', saving:'Speichern…',
     scanAI:'✦ Menü mit KI scannen', scanLink:'✦ Menü vom Link lesen',
     scanLoading:'KI liest das Menü…', scanOk:'✓ Menü extrahiert', scanFail:'Scan fehlgeschlagen. Erneut versuchen.',
-    addPhotos:'Tippe, um Fotos hinzuzufügen', addPhotosSub:'Screenshots des Menüs',
     deleted:'Gelöscht ✓', copied:'Kopiert ✓', applied:'Menü angewendet ✓', error:'Fehler beim Speichern',
     deleteConfirm:'Alle Bestellungen löschen?',
+    pickMenu:'Menü auswählen',
+    savedInFb:'In Firebase gespeichert',
+    menuSavedFb:'Menü in Firebase gespeichert ✓',
+    willSaveToFb:'Wird beim Anwenden in Firebase gespeichert',
   }
 };
 
@@ -440,26 +431,27 @@ function t(k) { return (T[lang]||T.en)[k] || k; }
 function setLang(l) {
   lang = l;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+  document.querySelector('.lang-btn[onclick="setLang(\''+l+'\')"]').classList.add('active');
   updateTexts();
 }
 
 function updateTexts() {
   const ids = {
-    't-tagline':'tagline','t-name-label':'nameLabel','t-start-btn':'startBtn',
+    't-tagline':'tagline','t-name-label':'nameLabel',
     't-admin-title':'adminTitle','t-admin-sub':'adminSub','t-saved-menus':'savedMenus',
-    't-new-menu':'newMenu','t-skip':'skip','t-apply':'apply','t-last-sub':'lastSub',
+    't-new-menu':'newMenu','t-skip':'skip','t-apply':'apply',
     't-ordered':'ordered','t-change-menu':'changeMenu','t-clear-all':'clearAll',
     't-report-btn':'reportBtn','t-done-btn':'doneBtn','t-back':'back','t-copy':'copy',
     't-report-btn2':'report','t-back2':'back','t-copy2':'copyReport',
     't-summary-title':'summaryTitle','t-report-title':'reportTitle',
+    't-pick-menu':'pickMenu',
   };
   Object.entries(ids).forEach(([id,k]) => { const el=document.getElementById(id); if(el) el.textContent=t(k); });
   document.getElementById('nameInput').placeholder = t('namePh');
   document.getElementById('photoScanBtn').textContent = t('scanAI');
   document.getElementById('urlScanBtn').textContent = t('scanLink');
-  const tab1=document.getElementById('tab-person'); if(tab1) tab1.textContent=t('byPerson');
-  const tab2=document.getElementById('tab-dish'); if(tab2) tab2.textContent=t('byDish');
+  const tp=document.getElementById('tab-person'); if(tp) tp.textContent=t('byPerson');
+  const td=document.getElementById('tab-dish'); if(td) td.textContent=t('byDish');
   if (currentMenu.length) buildMenu();
 }
 
@@ -539,12 +531,14 @@ const LAFINCA = [
 let currentUser='', isAdmin=false, currentMenu=[], currentMenuName='', allOrders={};
 let summaryTab='person', reportCat='all', reportPerson='all';
 let selectedPreset='lafinca', extractedMenu=null, uploadedPhotos=[];
+let savedFirebaseMenus=[];    // [{key, name, icon, itemCount, menu}]
+let selectedPickerKey=null;   // key chosen in registration picker
 
 function itemName(item) { return lang==='de' && item.de ? item.de : item.name; }
 function resolveItem(id) { let f=null; currentMenu.forEach(c=>c.items.forEach(i=>{if(i.id===Number(id))f=i;})); return f; }
 function getCatId(itemId) { let c=''; currentMenu.forEach(cat=>cat.items.forEach(i=>{if(i.id===Number(itemId))c=cat.id;})); return c; }
-function setSyncing() { const d=document.getElementById('syncDot'); if(d){d.className='sync-dot syncing';} }
-function setSynced()  { const d=document.getElementById('syncDot'); if(d){d.className='sync-dot ok';} }
+function setSyncing() { const d=document.getElementById('syncDot'); if(d) d.className='sync-dot syncing'; }
+function setSynced()  { const d=document.getElementById('syncDot'); if(d) d.className='sync-dot ok'; }
 function showLoader(msg) { document.getElementById('loaderText').textContent=msg||t('loading'); document.getElementById('loader').classList.remove('hidden'); }
 function hideLoader() { document.getElementById('loader').classList.add('hidden'); }
 
@@ -552,42 +546,108 @@ function hideLoader() { document.getElementById('loader').classList.add('hidden'
 document.addEventListener('DOMContentLoaded',()=>{
   const inp=document.getElementById('nameInput');
   const btn=document.getElementById('startBtn');
-  inp.addEventListener('input',()=>{ btn.disabled=inp.value.trim().length<2; });
+  // Pre-load saved menus so picker is ready
+  fetchSavedMenus().then(()=>{
+    renderMenuPicker();
+    renderAdminFbMenus();
+  });
+  inp.addEventListener('input',()=>{
+    const v=inp.value.trim();
+    btn.disabled = v.length < 2;
+    const adminUser = v.toLowerCase()==='tal';
+    document.getElementById('menuPickerSection').style.display = (v.length>=2 && !adminUser) ? 'block' : 'none';
+  });
   inp.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!btn.disabled) startOrdering(); });
   updateTexts();
 });
 
+// ── FETCH ALL SAVED MENUS FROM FIREBASE ──
+function fetchSavedMenus() {
+  return db.ref('savedMenus').once('value').then(snap=>{
+    const data=snap.val()||{};
+    savedFirebaseMenus=Object.entries(data).map(([key,val])=>({
+      key, name:val.name||'Unnamed', icon:val.icon||'🍽',
+      itemCount: val.menu ? val.menu.reduce((s,c)=>s+(c.items?c.items.length:0),0) : 0,
+      menu: val.menu||[],
+    }));
+  });
+}
+
+// ── RENDER PICKER (registration screen) ──
+function renderMenuPicker() {
+  const list=document.getElementById('menuPickerList'); list.innerHTML='';
+  const all=[
+    {key:'__lafinca__', icon:'🌿', name:'La Finca — Los Realejos',
+     sub:'Starters · Tapas · Meat · Fish · Desserts · '+LAFINCA.reduce((s,c)=>s+c.items.length,0)+' items'},
+    ...savedFirebaseMenus.map(m=>({key:m.key, icon:m.icon, name:m.name, sub:m.itemCount+' items · ☁ Firebase'}))
+  ];
+  all.forEach(m=>{
+    const card=document.createElement('div');
+    card.className='picker-card'+(selectedPickerKey===m.key?' sel':'');
+    card.innerHTML=`<span class="picker-icon">${m.icon}</span>
+      <div class="picker-txt"><div class="picker-name">${m.name}</div><div class="picker-sub">${m.sub}</div></div>
+      <div class="picker-chk">✓</div>`;
+    card.onclick=()=>{ selectedPickerKey=m.key; renderMenuPicker(); };
+    list.appendChild(card);
+  });
+}
+
+// ── RENDER FIREBASE MENUS IN ADMIN PANEL ──
+function renderAdminFbMenus() {
+  const list=document.getElementById('firebaseMenusList'); list.innerHTML='';
+  savedFirebaseMenus.forEach(m=>{
+    const btn=document.createElement('button');
+    btn.className='preset-btn'+(selectedPreset===m.key?' active':'');
+    btn.innerHTML=`<span class="preset-icon">${m.icon}</span>
+      <div>
+        <div class="preset-name">${m.name}</div>
+        <div class="preset-sub">${m.itemCount} items</div>
+        <div class="fb-badge">☁ ${t('savedInFb')}</div>
+      </div>
+      <div class="preset-check"><svg viewBox="0 0 12 9"><path d="M1 4.5l3 3 7-7" stroke="white" stroke-width="1.8" fill="none"/></svg></div>`;
+    btn.onclick=()=>selectPreset(m.key);
+    list.appendChild(btn);
+  });
+}
+
+function goToAdminForUser() { showScreen('adminScreen'); }
+
+// ── START ORDERING ──
 function startOrdering() {
   const name=document.getElementById('nameInput').value.trim();
   if(!name) return;
   currentUser=name; isAdmin=(name.toLowerCase()==='tal');
+
   if(isAdmin) {
-    db.ref('currentMenu').once('value',snap=>{
-      const d=snap.val();
-      if(d&&d.name&&d.name!=='La Finca — Los Realejos') {
-        document.getElementById('lastMenuLabel').textContent=d.name;
-        document.getElementById('preset-last').style.display='flex';
-      }
-      showScreen('adminScreen');
-    });
-  } else {
-    showLoader(t('loading'));
-    db.ref('currentMenu').once('value',snap=>{
-      const d=snap.val();
-      currentMenu = d&&d.menu ? d.menu : LAFINCA;
-      currentMenuName = d&&d.name ? d.name : 'La Finca — Los Realejos';
-      hideLoader();
-      launchMenu();
-    });
+    fetchSavedMenus().then(()=>{ renderAdminFbMenus(); renderMenuPicker(); showScreen('adminScreen'); });
+    return;
   }
+
+  // Non-admin: use picker choice or fall back to active Firebase currentMenu
+  if(selectedPickerKey==='__lafinca__') {
+    currentMenu=LAFINCA; currentMenuName='La Finca — Los Realejos'; launchMenu(); return;
+  }
+  if(selectedPickerKey) {
+    const found=savedFirebaseMenus.find(m=>m.key===selectedPickerKey);
+    if(found) { currentMenu=found.menu; currentMenuName=found.name; launchMenu(); return; }
+  }
+  // No pick — load active menu
+  showLoader(t('loading'));
+  db.ref('currentMenu').once('value',snap=>{
+    const d=snap.val();
+    currentMenu=d&&d.menu?d.menu:LAFINCA;
+    currentMenuName=d&&d.name?d.name:'La Finca — Los Realejos';
+    hideLoader(); launchMenu();
+  });
 }
 
-// ── ADMIN ──
+// ── ADMIN PANEL ──
 function selectPreset(id) {
   selectedPreset=id; extractedMenu=null;
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
-  const btn=document.getElementById('preset-'+id);
-  if(btn) btn.classList.add('active');
+  const el=document.getElementById('preset-'+id);
+  if(el) el.classList.add('active');
+  else renderAdminFbMenus(); // re-render to show selection
 }
 
 function switchTab(tab) {
@@ -628,27 +688,23 @@ async function scanPhotos() {
   const btn=document.getElementById('photoScanBtn');
   const status=document.getElementById('photoStatus');
   btn.disabled=true; status.className='scan-status loading'; status.textContent=t('scanLoading');
-
   try {
-    const content = uploadedPhotos.map(p=>({
-      type:'image', source:{type:'base64', media_type:p.type, data:p.b64}
-    }));
-    content.push({type:'text', text:`Extract ALL menu items from these menu photos.
+    const content=uploadedPhotos.map(p=>({type:'image',source:{type:'base64',media_type:p.type,data:p.b64}}));
+    content.push({type:'text',text:`Extract ALL menu items from these menu photos.
 Return ONLY a valid JSON array, no markdown, no explanation:
 [{"id":"category_id","name":"Category in English","icon":"emoji","items":[{"id":1,"name":"Dish in English","de":"Gericht auf Deutsch","price":12.50}]}]
 Rules: unique numeric IDs starting from 1, prices as numbers, appropriate emojis. JSON only.`});
-
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content}]})
     });
-    const data = await res.json();
-    const text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
-    const match = text.match(/\[[\s\S]*\]/);
+    const data=await res.json();
+    const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const match=text.match(/\[[\s\S]*\]/);
     if(!match) throw new Error('No JSON');
-    extractedMenu = JSON.parse(match[0]);
-    showScanResult('photoResult', extractedMenu);
+    extractedMenu=JSON.parse(match[0]);
+    showScanResult('photoResult',extractedMenu);
     status.className='scan-status'; status.textContent=t('scanOk');
   } catch(err) {
     status.className='scan-status'; status.textContent=t('scanFail');
@@ -663,13 +719,12 @@ async function scanUrl() {
   const btn=document.getElementById('urlScanBtn');
   const status=document.getElementById('urlStatus');
   btn.disabled=true; status.className='scan-status loading'; status.textContent=t('scanLoading');
-
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514', max_tokens:4000,
+        model:'claude-sonnet-4-20250514',max_tokens:4000,
         tools:[{type:'web_search_20250305',name:'web_search'}],
         messages:[{role:'user',content:`Visit this restaurant menu URL and extract all menu items: ${url}
 Return ONLY a valid JSON array, no markdown:
@@ -691,16 +746,19 @@ Rules: unique numeric IDs from 1, prices as numbers. JSON only.`}]
   btn.disabled=false;
 }
 
-function showScanResult(containerId, menu) {
+function showScanResult(containerId,menu) {
   const container=document.getElementById(containerId); container.innerHTML='';
   const div=document.createElement('div'); div.className='scan-result';
   const total=menu.reduce((s,c)=>s+c.items.length,0);
   div.innerHTML='<div class="scan-result-title">✓ '+total+' items found</div>';
   menu.slice(0,5).forEach(cat=>{
     const row=document.createElement('div'); row.className='scan-result-item';
-    row.innerHTML='<span>'+(cat.icon||'')+'  '+cat.name+'</span><span>'+cat.items.length+'</span>';
+    row.innerHTML='<span>'+(cat.icon||'')+' '+cat.name+'</span><span>'+cat.items.length+'</span>';
     div.appendChild(row);
   });
+  const note=document.createElement('div'); note.className='fb-save-note';
+  note.textContent='☁ '+t('willSaveToFb');
+  div.appendChild(note);
   container.appendChild(div);
 }
 
@@ -714,31 +772,60 @@ function skipSetup() {
   });
 }
 
+// ── APPLY MENU — saves extracted menu to Firebase savedMenus + sets as current ──
 async function applyMenu() {
-  let menu=null, name='';
-  if(extractedMenu) { menu=extractedMenu; name=document.getElementById('newMenuName').value.trim()||'Custom menu'; }
-  else if(selectedPreset==='lafinca') { menu=LAFINCA; name='La Finca — Los Realejos'; }
-  else if(selectedPreset==='last') {
-    showLoader();
-    db.ref('currentMenu').once('value',snap=>{ const d=snap.val(); if(d&&d.menu){currentMenu=d.menu;currentMenuName=d.name;} hideLoader(); launchMenu(); });
-    return;
-  } else { showToast('Select a menu first'); return; }
+  let menu=null, name='', icon='🍽';
+
+  if(extractedMenu) {
+    menu=extractedMenu;
+    name=document.getElementById('newMenuName').value.trim()||'Custom menu';
+    icon=extractedMenu[0]&&extractedMenu[0].icon ? extractedMenu[0].icon : '🍽';
+  } else if(selectedPreset==='lafinca') {
+    menu=LAFINCA; name='La Finca — Los Realejos'; icon='🌿';
+  } else {
+    // Firebase menu selected
+    const fbMenu=savedFirebaseMenus.find(m=>m.key===selectedPreset);
+    if(fbMenu) {
+      showLoader(t('saving'));
+      await db.ref('currentMenu').set({name:fbMenu.name,menu:fbMenu.menu});
+      currentMenu=fbMenu.menu; currentMenuName=fbMenu.name;
+      hideLoader(); showToast(t('applied')); launchMenu(); return;
+    }
+    showToast('Select a menu first'); return;
+  }
 
   showLoader(t('saving'));
   try {
+    // 1. Set as active current menu (for all users to pick up)
     await db.ref('currentMenu').set({name,menu});
+
+    // 2. Save into the savedMenus library so it appears in picker permanently
+    if(extractedMenu) {
+      const key='menu_'+Date.now();
+      await db.ref('savedMenus/'+key).set({
+        name, menu, icon,
+        savedAt: new Date().toISOString(),
+        savedBy: currentUser||'admin'
+      });
+      await fetchSavedMenus();
+      renderMenuPicker();
+      renderAdminFbMenus();
+    }
+
     currentMenu=menu; currentMenuName=name;
-    hideLoader(); showToast(t('applied')); launchMenu();
-  } catch(e) { hideLoader(); showToast(t('error')); }
+    hideLoader(); showToast(t('menuSavedFb')); launchMenu();
+  } catch(e) {
+    hideLoader(); showToast(t('error')); console.error(e);
+  }
 }
 
-// ── MENU ──
+// ── LAUNCH MENU ──
 function launchMenu() {
-  document.getElementById('restaurantName').innerHTML = currentMenuName + ' <span class="sync-dot ok" id="syncDot"></span>';
-  document.getElementById('userNameDisplay').textContent = currentUser + (isAdmin?' · Admin':'');
+  document.getElementById('restaurantName').innerHTML=currentMenuName+' <span class="sync-dot ok" id="syncDot"></span>';
+  document.getElementById('userNameDisplay').textContent=currentUser+(isAdmin?' · Admin':'');
   if(isAdmin) document.getElementById('adminStrip').style.display='flex';
 
-  db.ref('orders').on('value', snap=>{
+  db.ref('orders').on('value',snap=>{
     const raw=snap.val()||{};
     allOrders={};
     Object.entries(raw).forEach(([user,orders])=>{
@@ -783,16 +870,13 @@ function buildMenu() {
       document.getElementById('c-'+cat.id).scrollIntoView({behavior:'smooth',block:'start'});
     };
     nav.appendChild(pill);
-
     const block=document.createElement('div'); block.className='cat-block'; block.id='c-'+cat.id;
     const heading=document.createElement('div'); heading.className='cat-heading';
     heading.textContent=(cat.icon||'')+' '+(lang==='de'&&cat.de?cat.de:cat.name);
     block.appendChild(heading);
-    cat.items.forEach(item=>{
-      const card=buildItem(item); block.appendChild(card);
-    });
+    cat.items.forEach(item=>{ block.appendChild(buildItem(item)); });
     body.appendChild(block);
-    if(ci<currentMenu.length-1){const div=document.createElement('div');div.className='divider';body.appendChild(div);}
+    if(ci<currentMenu.length-1){const d=document.createElement('div');d.className='divider';body.appendChild(d);}
   });
   updateCart();
 }
@@ -810,10 +894,8 @@ function buildItem(item) {
   const card=document.createElement('div');
   card.className='item-card'+(sel?' selected':'');
   card.id='i-'+item.id;
-
   const name=itemName(item);
   const altName=lang==='de'?item.name:(item.de||'');
-
   let ctrl='';
   if(sel) {
     ctrl=`<div class="item-controls" onclick="event.stopPropagation()">
@@ -828,7 +910,6 @@ function buildItem(item) {
       <input class="note-field" placeholder="${t('notePh')}" value="${(entry.note||'').replace(/"/g,'&quot;')}" onchange="updateNote(event,${item.id})" />
     </div>`;
   }
-
   card.innerHTML=`
     <div class="item-check-box">${sel?'✓':''}</div>
     <div class="item-body">
@@ -838,7 +919,6 @@ function buildItem(item) {
       <div class="item-price">${Number(item.price).toFixed(2)} €</div>
       ${ctrl}
     </div>`;
-
   card.onclick=()=>toggleItem(item);
   return card;
 }
@@ -959,8 +1039,6 @@ function goToReport() {
 
 function renderReportFilters() {
   const c=document.getElementById('reportFilters'); c.innerHTML='';
-
-  // cat filters
   [['all',t('all')],...currentMenu.map(cat=>[cat.id,(cat.icon||'')+' '+(lang==='de'&&cat.de?cat.de:cat.name)])].forEach(([id,label])=>{
     const btn=document.createElement('button');
     btn.className='filter-pill'+(reportCat===id?' active':'');
@@ -968,11 +1046,7 @@ function renderReportFilters() {
     btn.onclick=()=>{reportCat=id;renderReportFilters();renderReport();};
     c.appendChild(btn);
   });
-
-  // spacer
   const sp=document.createElement('div'); sp.style.cssText='width:100%;height:0;flex-basis:100%'; c.appendChild(sp);
-
-  // person filters
   const people=['all',...Object.keys(allOrders).filter(u=>Object.keys(allOrders[u]).length>0)];
   people.forEach(p=>{
     const btn=document.createElement('button');
@@ -994,13 +1068,10 @@ function renderReport() {
       if(reportCat==='all'||cid===reportCat) filtered[user][id]=o;
     });
   });
-
   const map=buildDishMap(filtered);
   if(!Object.keys(map).length){c.innerHTML=emptyHTML();return;}
-
   const catGroups={};
   Object.values(map).forEach(d=>{const cid=getCatId(d.item.id);if(!catGroups[cid])catGroups[cid]=[];catGroups[cid].push(d);});
-
   currentMenu.forEach(cat=>{
     if(!catGroups[cat.id]||!catGroups[cat.id].length) return;
     if(reportCat==='all'){
@@ -1019,10 +1090,8 @@ function renderReport() {
       c.appendChild(row);
     });
   });
-
   const h=document.createElement('div'); h.style.cssText='font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)';
   h.textContent=t('total'); c.appendChild(h);
-
   let grand=0;
   Object.entries(filtered).forEach(([user,orders])=>{
     const items=Object.values(orders); if(!items.length) return;
@@ -1079,8 +1148,8 @@ function showScreen(id){
 }
 
 function showToast(msg){
-  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
+  const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
 }
 </script>
 </body>
